@@ -11,6 +11,7 @@ import util.DBHelper;
 public class CategoryDAO {
 
     private final String SELECT_ALL_CATEGORIES = "SELECT * FROM CATEGORY";
+    private final String SELECT_CATEGORI_BY_ID = "SELECT * FROM CATEGORY WHERE ID = ? ";
     private static CategoryDAO instance;
     private Connection connection;
 
@@ -42,6 +43,17 @@ public class CategoryDAO {
         return categories;
     }
     
-
+    public CategoryDTO selectCategoryById(int id) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(SELECT_CATEGORI_BY_ID);
+        statement.setInt(1, id);
+        ResultSet result = statement.executeQuery();
+        CategoryDTO category = null;
+        if(result.next()){
+            String name = result.getString("name");
+            String image = result.getString("image");
+            category =  new CategoryDTO(id, name, image);
+        }
+        return category;
+    }
 
 }
