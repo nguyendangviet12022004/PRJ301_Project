@@ -8,7 +8,7 @@ public class ProductDTO {
     private int stock;
     private int price;
     private CategoryDTO category;
-    private String img;
+    private String image;
 
     public ProductDTO() {
     }
@@ -19,7 +19,7 @@ public class ProductDTO {
         this.stock = stock;
         this.price = price;
         this.category = category;
-        this.img = img;
+        this.image = img;
     }
 
     public int getId() {
@@ -62,12 +62,12 @@ public class ProductDTO {
         this.category = category;
     }
 
-    public String getImg() {
-        return img;
+    public String getImage() {
+        return image;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ProductDTO {
         hash = 53 * hash + this.stock;
         hash = 53 * hash + this.price;
         hash = 53 * hash + Objects.hashCode(this.category);
-        hash = 53 * hash + Objects.hashCode(this.img);
+        hash = 53 * hash + Objects.hashCode(this.image);
         return hash;
     }
 
@@ -99,7 +99,7 @@ public class ProductDTO {
 
     @Override
     public String toString() {
-        return "ProductDTO{" + "id=" + id + ", name=" + name + ", stock=" + stock + ", price=" + price + ", category=" + category + ", img=" + img + '}';
+        return "ProductDTO{" + "id=" + id + ", name=" + name + ", stock=" + stock + ", price=" + price + ", category=" + category + ", img=" + image + '}';
     }
     
     
