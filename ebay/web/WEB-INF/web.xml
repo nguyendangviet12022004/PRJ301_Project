@@ -4,8 +4,16 @@
         <servlet-name>ProductController</servlet-name>
         <servlet-class>controller.ProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CategoryController</servlet-name>
+        <servlet-class>controller.CategoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CategoryController</servlet-name>
+        <url-pattern>/category</url-pattern>
     </servlet-mapping>
 </web-app>

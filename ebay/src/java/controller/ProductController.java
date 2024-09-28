@@ -40,9 +40,7 @@ public class ProductController extends HttpServlet {
         String action = request.getParameter("action");
         if(action == null) action = "read";
         switch(action){
-            case "read":
-                readProducts(request, response);
-                break;
+            case "read" -> readProducts(request, response);
         }
     }
 
