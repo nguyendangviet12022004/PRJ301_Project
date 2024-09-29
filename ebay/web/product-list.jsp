@@ -8,12 +8,12 @@
         <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
     </head>
     <body>
-        <c:if test="${requestScope.products == null}">
+        <c:if test="${sessionScope.products == null}">
             <c:redirect url="product"></c:redirect>
         </c:if>
 
         <div class="d-flex justify-content-between flex-wrap w-100" style="gap: 50px">
-            <c:forEach var="product" items="${requestScope.products}">
+            <c:forEach var="product" items="${sessionScope.products}">
                 <div class="card" style="width:300px">
                     <img class="card-img-top d-inline-block" src="${product.image}" alt="product image" width="300px" height="200px" >
                     <div class="card-body d-flex flex-column justify-content-between">

@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,31 +17,45 @@ import model.ProductDTO;
 
 public class ProductController extends HttpServlet {
 
-    private void readProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        String categoryId = request.getParameter("categoryId");
+    private void readProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String selectedCategoryId = request.getParameter("selectedCategoryId");
+        session.setAttribute("selectedCategoryId", selectedCategoryId);
+
+        selectedCategoryId = (String) session.getAttribute("selectedCategoryId");
         ProductDAO productDao = ProductDAO.getInstance();
         List<ProductDTO> products = null;
-        if(categoryId == null){
+
+        // read all products 
+        if (selectedCategoryId == null) {
             try {
                 products = productDao.selectAllProducts();
             } catch (SQLException ex) {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
-            // them chuc nang loc theo category vao day
+
+            // read require category products
+        } else {
+            try {
+                products = productDao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        PrintWriter out = response.getWriter();
-        
-        request.setAttribute("products", products);
-        request.getRequestDispatcher("product-list.jsp").forward(request, response);
+        session.setAttribute("products", products);
+        response.sendRedirect("product-list.jsp");
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null) action = "read";
-        switch(action){
-            case "read" -> readProducts(request, response);
+        if (action == null) {
+            action = "read";
+        }
+        switch (action) {
+            case "read" ->
+                readProducts(request, response);
         }
     }
 

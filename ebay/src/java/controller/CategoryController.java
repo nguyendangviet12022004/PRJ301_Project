@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ public class CategoryController extends HttpServlet {
     
     private void readCategories(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         CategoryDAO categoryDao = CategoryDAO.getInstance();
         List<CategoryDTO> categories = null;
         try {
@@ -24,9 +26,8 @@ public class CategoryController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("categories", categories);
-        PrintWriter out = response.getWriter();
-        out.println(categories);
+        session.setAttribute("categories", categories);
+        response.sendRedirect("category-list.jsp");
     } 
     
     @Override
