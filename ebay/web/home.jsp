@@ -34,7 +34,7 @@
                     <h5 class="card-title">${product.name}</h5>
                     <p class="text-center text-primary">${product.price} $</p>
                 </div>
-                <!<!-- Them chuc nang mua hang va them gio hang vao day sau -->
+                
                 <div class="card-footer d-flex justify-content-between">
                     <button class="btn btn-primary">Add To Cart</button>
                     <button class="btn btn-primary">Buy Now</button>
