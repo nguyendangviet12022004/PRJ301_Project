@@ -8,10 +8,6 @@
         <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
     </head>
     <body>
-        <c:if test="${sessionScope.categories == null}">
-            <c:redirect url="category"></c:redirect>
-        </c:if>
-        
         <div class="container d-flex flex-wrap justify-content-between">
             <c:forEach items="${sessionScope.categories}" var="category">
                 <a href="product?selectedCategoryId=${category.id}">

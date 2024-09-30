@@ -34,7 +34,6 @@ public class ProductController extends HttpServlet {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            // read require category products
         } else {
             try {
                 products = productDao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
@@ -43,7 +42,7 @@ public class ProductController extends HttpServlet {
             }
         }
         session.setAttribute("products", products);
-        //response.sendRedirect("product-list.jsp");
+        response.sendRedirect("home.jsp");
     }
 
     @Override

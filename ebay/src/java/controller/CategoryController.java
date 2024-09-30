@@ -27,7 +27,7 @@ public class CategoryController extends HttpServlet {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
         session.setAttribute("categories", categories);
-        //response.sendRedirect("category-list.jsp");
+        response.sendRedirect("home.jsp");
     } 
     
     @Override
