@@ -13,7 +13,7 @@ public class DBHelper implements Serializable{
         String url="jdbc:sqlserver:"
                 + "//localhost:1433"
                 + ";databaseName=EBAY;encrypt=true;trustServerCertificate=true";
-        Connection con=DriverManager.getConnection(url,"sa","123");
+        Connection con=DriverManager.getConnection(url,"sa","123456");
         return con;
     }
     

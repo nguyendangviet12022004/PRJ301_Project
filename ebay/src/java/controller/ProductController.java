@@ -43,7 +43,7 @@ public class ProductController extends HttpServlet {
             }
         }
         session.setAttribute("products", products);
-        response.sendRedirect("product-list.jsp");
+        //response.sendRedirect("product-list.jsp");
     }
 
     @Override
