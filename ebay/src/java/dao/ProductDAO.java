@@ -11,6 +11,7 @@ import util.DBHelper;
 public class ProductDAO {
     private final String SELECT_ALL_PRODUCTS = "SELECT * FROM PRODUCT";
     private final String SELECT_PRODUCTS_BY_CATEGORY_ID = "SELECT * FROM PRODUCT WHERE CATEGORY_ID = ?";
+    private final String SELECT_PRODUCTS_BY_SEARCH_KEY = "SELECT * FROM PRODUCT WHERE [name] LIKE %?%";
     private static ProductDAO instance;
     private Connection connection;
 
@@ -62,6 +63,10 @@ public class ProductDAO {
         return products;
     }
     
+    public List<ProductDTO> selectProductsBySearchKey(int categoryId) {
+        return null;
+        // fix this 
+    }
     public static void main(String[] args) {
         try {
             System.out.println(ProductDAO.getInstance().selectProductsByCategoryId(6));

@@ -20,20 +20,15 @@ public class ProductController extends HttpServlet {
     private void readProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String selectedCategoryId = request.getParameter("selectedCategoryId");
-        session.setAttribute("selectedCategoryId", selectedCategoryId);
-
-        selectedCategoryId = (String) session.getAttribute("selectedCategoryId");
         ProductDAO productDao = ProductDAO.getInstance();
         List<ProductDTO> products = null;
 
-        // read all products 
         if (selectedCategoryId == null) {
             try {
                 products = productDao.selectAllProducts();
             } catch (SQLException ex) {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         } else {
             try {
                 products = productDao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
@@ -41,10 +36,12 @@ public class ProductController extends HttpServlet {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        session.setAttribute("selectedCategoryId", selectedCategoryId);
         session.setAttribute("products", products);
         response.sendRedirect("home.jsp");
     }
 
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
