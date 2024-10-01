@@ -10,6 +10,10 @@ import util.DBHelper;
 
 public class AccountDAO {
     private String SELECT_ALL_ACCOUNTS = "SELECT * FROM ACCOUNT";
+    private String SELECT_ACCOUNT = "SELECT * FROM ACCOUNT WHERE [USER_NAME] = ? AND [PASSWORD] = ?";
+    private String INSERT_ACCOUNT = "INSERT INTO ACCOUNT([USER_NAME],[PASSWORD],[ROLE]) VALUES(?,?,?)";
+    private String DELETE_ACCOUNT = "DELETE FROM ACCOUNT WHERE [USER_NAME] = ?";
+    
     private static AccountDAO instance;
     private Connection connection;
     
@@ -41,7 +45,38 @@ public class AccountDAO {
         return accounts;
     }
     
+    public AccountDTO selectAccount(String userName, String password) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(SELECT_ACCOUNT);
+        statement.setString(1, userName);
+        statement.setString(2 , password);
+        ResultSet result = statement.executeQuery();
+        AccountDTO account = null;
+        if(result.next()){
+            
+            String role = result.getString("role");
+            account = new AccountDTO(userName, password, role);
+        }
+        return account;
+    }
+    
+    public void insertAccount(String userName,String password, String role) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(INSERT_ACCOUNT);
+        statement.setString(1, userName);       
+        statement.setString(2, password);
+        statement.setString(3, role);
+        statement.executeUpdate();
+        statement.close();
+    }
+    
+    public void deleteAccount(String userName) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(DELETE_ACCOUNT);
+        statement.setString(1, userName);   
+        statement.executeUpdate();
+        statement.close();
+    }
+    
     public static void main(String[] args) throws SQLException {
-        System.out.println(getInstance().selectAllAccounts());
+        //getInstance().deleteAccount("user4");
+        //System.out.println(getInstance().selectAllAccounts());
     }
 }
