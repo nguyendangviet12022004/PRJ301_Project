@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-12 text-start">
                         <a href="#" class="text-decoration-none me-3">Sign in</a>
-                        <a href="#" class="text-decoration-none me-3">Register</a>
+                        <a href="registration-form.jsp" class="text-decoration-none me-3">Register</a>
                         <a href="#" class="text-decoration-none me-3">Daily Deals</a>
                         <a href="#" class="text-decoration-none me-3">Help & Contact</a>
                         <a href="#" class="text-decoration-none me-3">Cart</a>

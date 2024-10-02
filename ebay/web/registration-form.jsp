@@ -4,6 +4,7 @@
     Author     : ACER
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-                
+
                 <div class="col-md-7 d-flex align-items-center justify-content-start">
                     <img src="assets/image/logo.png">
                 </div>
@@ -32,7 +33,7 @@
                     <img src="assets/image/buyer_dweb_individual.jpg" style="border-radius: 15px; width: 713px;">
                 </div>
                 <div class="col-md-6">
-                    <form action="LoginServlet" method="POST" class="form text-center">
+                    <form action="account?action=create" method="POST" class="form text-center">
                         <h1>Create an account</h1>
                         <div class="form-floating my-3">
                             <input name="userName" type="text" class="form-control" placeholder="" required>
@@ -42,15 +43,21 @@
                             <input name="password" type="password" class="form-control" placeholder="" required>
                             <label for="password">Password</label>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary">Sign In</button> 
-                        
+
+                        <button type="submit" class="btn btn-primary">Create</button> 
+                        <p class=""></p>
                         <p class="my-3"><a href="#" target="target">Forget Your Password ?</a></p>
+                        <c:if test ="${requestScope.error != null}">
+                            <div class="alert alert-danger" role="alert">
+                                ${requestScope.error}
+                            </div>
+                        </c:if>
+                        
                     </form>
                 </div>
             </div>
         </div>
-    
 
-</body>
+
+    </body>
 </html>
