@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
     </head>
     <body>
-        <div class="container-fluid" style="display:flex;align-items: center;align-content: center;justify-content: space-between;">
+        <div class="container-fluid d-flex align-content-center justify-content-center">
             <div class="row">
                 
                 <div class="col-md-7 d-flex align-items-center justify-content-start" >
