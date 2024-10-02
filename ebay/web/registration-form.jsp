@@ -34,8 +34,9 @@
                 </div>
 
                 <div class="col-md-6">
-                    <form action="account?action=create" method="POST" class="form text-center">
+                    <form action="account" method="POST" class="form text-center">
 
+                        <input type="hidden" name="action" value="create">
                         <h1>Create an account</h1>
                         <div class="form-floating my-3">
                             <input name="userName" type="text" class="form-control" placeholder="" required>

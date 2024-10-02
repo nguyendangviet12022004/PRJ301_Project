@@ -5,4 +5,5 @@ public interface IConstant {
     public String USER = "USER";
     public String HOME_PAGE = "home.jsp";
     public String REGESTRATION_PAGE = "registration-form.jsp";
+    public String ACCOUNT_LIST_PAGE = "account-list.jsp";
 }

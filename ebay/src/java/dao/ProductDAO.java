@@ -18,6 +18,7 @@ public class ProductDAO {
     private final String INSERT_PRODUCT = "INSERT INTO PRODUCT (NAME,STOCK,PRICE,CATEGORY_ID,IMAGE) VALUES(?,?,?,?,?)";
     private final String UPDATE_PRODUCT = "UPDATE PRODUCT SET name = ?, stock = ?, price = ? , category_id = ? , image = ? WHERE id = ?";
     private final String DELETE_PRODUCT = "DELETE FROM PRODUCT WHERE ID = ?";
+    
     private static ProductDAO instance;
     private Connection connection;
 
@@ -57,7 +58,7 @@ public class ProductDAO {
         statement.setInt(1, id);
         ResultSet result = statement.executeQuery();
         ProductDTO product = null;
-        while (result.next()) {
+        if (result.next()) {
             String name = result.getString("name");
             int stock = result.getInt("stock");
             int price = result.getInt("price");
@@ -142,10 +143,6 @@ public class ProductDAO {
     }
     
     public static void main(String[] args) {
-        try {
-            ProductDAO.getInstance().deleteProduct(57);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ProductDAO productDao = ProductDAO.getInstance();
     }
 }
