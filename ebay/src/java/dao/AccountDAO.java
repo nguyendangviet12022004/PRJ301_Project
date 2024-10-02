@@ -77,6 +77,6 @@ public class AccountDAO {
     
     public static void main(String[] args) throws SQLException {
         //getInstance().deleteAccount("user4");
-        //System.out.println(getInstance().selectAllAccounts());
+        System.out.println(getInstance().selectAllAccounts());
     }
 }
