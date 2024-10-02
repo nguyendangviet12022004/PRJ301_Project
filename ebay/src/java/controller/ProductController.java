@@ -41,24 +41,57 @@ public class ProductController extends HttpServlet {
         response.sendRedirect("home.jsp");
     }
 
+    private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        // co the phai kiem tra quyen truy cap
+        
+    }
+    
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        
+    }
+    
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        
+    }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
+        String action = request.getParameter("action");// co the la attribute
         if (action == null) {
             action = "read";
         }
         switch (action) {
-            case "read" ->
+            case "read":
                 readProducts(request, response);
+                break;
+            case "delete":
+                deleteProduct(request, response);
+                break;
+            case "create" :
+                // chuyen huong trang 
+                break;
+            case "update":
+                // them du lieu, chuyen huong trang
+                break;
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String action = request.getParameter("action");// co the la attribute
+        if (action == null) {
+            action = "read";
+        }
+        switch (action) {
+            case "create" :
+                createProduct(request, response);
+                break;
+            case "update":
+                updateProduct(request, response);
+                break;
+        }
     }
 
 }
