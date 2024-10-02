@@ -8,10 +8,6 @@
         <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
     </head>
     <body>
-        <c:if test="${sessionScope.products == null}">
-            <c:redirect url="product"></c:redirect>
-        </c:if>
-
         <div class="d-flex justify-content-between flex-wrap w-100" style="gap: 50px">
             <c:forEach var="product" items="${sessionScope.products}">
                 <div class="card" style="width:300px">

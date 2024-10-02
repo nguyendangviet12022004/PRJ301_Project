@@ -1,4 +1,4 @@
---CREATE DATABASE EBAY;
+CREATE DATABASE EBAY;
 
 CREATE TABLE CATEGORY(
 	id INT PRIMARY KEY IDENTITY(1,1),
@@ -103,3 +103,57 @@ INSERT INTO PRODUCT([name], stock, price, category_id, [image]) VALUES
 ('3D Wooden Montessori Kid''s Educational Jigsaw Puzzle Toys For Toddler & Children', 15, 45, 7, 'https://i.ebayimg.com/images/g/C2oAAOSw-YdlX3Pz/s-l960.webp'),
 ('Lego Dungeons & Dragons D&D Minifigures', 10, 55, 7, 'https://i.ebayimg.com/images/g/t~AAAOSwPXxmiK~h/s-l960.webp'),
 ('LEGO TECHNIC: Mercedes-AMG F1', 5, 130, 7, 'https://i.ebayimg.com/images/g/MCoAAOSwt0xm5pHm/s-l960.webp');
+
+
+INSERT INTO ACCOUNT ([user_name], [password], [role])
+VALUES 
+('user1', 'password123', 'USER'),
+('user2', 'password234', 'USER'),
+('user3', 'password345', 'ADMIN'),
+('user4', 'password456', 'USER'),
+('user5', 'password567', 'ADMIN'),
+('user6', 'password678', 'USER'),
+('user7', 'password789', 'USER'),
+('user8', 'password890', 'USER'),
+('user9', 'password901', 'USER'),
+('user10', 'password012', 'ADMIN'),
+('user11', 'password111', 'USER'),
+('user12', 'password222', 'USER'),
+('user13', 'password333', 'ADMIN'),
+('user14', 'password444', 'USER'),
+('user15', 'password555', 'USER'),
+('user16', 'password666', 'ADMIN'),
+('user17', 'password777', 'USER'),
+('user18', 'password888', 'USER'),
+('user19', 'password999', 'USER'),
+('user20', 'password000', 'ADMIN'),
+('user21', 'password1234', 'USER'),
+('user22', 'password2345', 'USER'),
+('user23', 'password3456', 'ADMIN'),
+('user24', 'password4567', 'USER'),
+('user25', 'password5678', 'USER'),
+('user26', 'password6789', 'ADMIN'),
+('user27', 'password7890', 'USER'),
+('user28', 'password8901', 'USER'),
+('user29', 'password9012', 'USER'),
+('user30', 'password0123', 'ADMIN'),
+('user31', 'password2341', 'USER'),
+('user32', 'password3452', 'USER'),
+('user33', 'password4563', 'ADMIN'),
+('user34', 'password5674', 'USER'),
+('user35', 'password6785', 'USER'),
+('user36', 'password7896', 'USER'),
+('user37', 'password8907', 'ADMIN'),
+('user38', 'password9018', 'USER'),
+('user39', 'password0129', 'USER'),
+('user40', 'password1230', 'ADMIN'),
+('user41', 'password2346', 'USER'),
+('user42', 'password3457', 'USER'),
+('user43', 'password4568', 'ADMIN'),
+('user44', 'password5679', 'USER'),
+('user45', 'password6780', 'USER'),
+('user46', 'password7891', 'USER'),
+('user47', 'password8902', 'ADMIN'),
+('user48', 'password9013', 'USER'),
+('user49', 'password0124', 'USER'),
+('user50', 'password1235', 'ADMIN');
