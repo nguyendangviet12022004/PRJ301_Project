@@ -22,7 +22,8 @@
                 </div>
 
                 <div class="col-md-5 d-flex align-items-center justify-content-end">
-                    <a href="#">Tell us what you think</a>
+                    <span><p>Already have an account?</p></span>
+                    <span><a href="#">Sign in</a></span>
                 </div>
             </div>
         </div>
