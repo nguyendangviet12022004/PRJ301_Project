@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,14 +16,15 @@ import model.AccountDTO;
 
 
 public class AccountController extends HttpServlet {
-
+    private static final AccountDAO dao = AccountDAO.getInstance();
+    
     private void createAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         
-        AccountDAO accountDao = AccountDAO.getInstance();
+
         try {
-            accountDao.insertAccount(userName, password, IConstant.USER);
+            dao.insertAccount(userName, password, IConstant.USER);
             // chuyen huong sang trang login
         } catch (SQLException ex) {
             
@@ -33,14 +35,45 @@ public class AccountController extends HttpServlet {
     }
 
     private void readAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        AccountDAO accountDao = AccountDAO.getInstance();
+
         try {
-            List<AccountDTO> accounts = accountDao.selectAllAccounts();
+            List<AccountDTO> accounts = dao.selectAllAccounts();
             request.setAttribute("accounts", accounts);
             request.getRequestDispatcher(IConstant.ACCOUNT_LIST_PAGE).forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String userName = request.getParameter("userName");
+        try {
+            dao.deleteAccount(userName);
+            request.getRequestDispatcher(IConstant.ACCOUNT_LIST_PAGE).forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    private void signIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
+        try {
+            AccountDTO account = dao.selectAccount(userName, password);
+            HttpSession session = request.getSession();
+            session.setAttribute("account", account);
+            response.sendRedirect(IConstant.HOME_PAGE);
+        } catch (SQLException ex) {
+            request.setAttribute("error", "Wrong user name or password");
+            request.getRequestDispatcher(IConstant.SIGN_IN_PAGE).forward(request, response);
+        }
+    }
+    
+    private void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        session.removeAttribute("account");
+        response.sendRedirect(IConstant.HOME_PAGE);
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,6 +87,7 @@ public class AccountController extends HttpServlet {
                 readAccount(request, response);
                 break;
             case "delete":
+                deleteAccount(request, response);
                 break;
         }
     }
@@ -71,6 +105,9 @@ public class AccountController extends HttpServlet {
                 createAccount(request, response);
                 break;
             case "update":
+                break;
+            case "login":
+                signIn(request, response);
                 break;
         }
     }

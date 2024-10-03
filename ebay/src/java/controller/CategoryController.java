@@ -30,6 +30,7 @@ public class CategoryController extends HttpServlet {
         response.sendRedirect("home.jsp");
     } 
     
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
