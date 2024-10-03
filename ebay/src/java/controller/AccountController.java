@@ -14,27 +14,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.AccountDTO;
 
-
 public class AccountController extends HttpServlet {
+
     private static final AccountDAO dao = AccountDAO.getInstance();
-    
+
     private void createAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        
 
         try {
             dao.insertAccount(userName, password, IConstant.USER);
-            // chuyen huong sang trang login
+            response.sendRedirect(IConstant.SIGN_IN_PAGE);
         } catch (SQLException ex) {
-            
+
             request.setAttribute("error", "Username is exist!!");
             request.getRequestDispatcher(IConstant.REGESTRATION_PAGE).forward(request, response);
         }
-        
+
     }
 
-    private void readAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void readAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
             List<AccountDTO> accounts = dao.selectAllAccounts();
@@ -44,8 +43,8 @@ public class AccountController extends HttpServlet {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    private void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
         try {
             dao.deleteAccount(userName);
@@ -53,28 +52,33 @@ public class AccountController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    private void signIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    private void signIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         try {
             AccountDTO account = dao.selectAccount(userName, password);
+            if (account == null) {
+                request.setAttribute("error", "Wrong user name or password");
+                request.getRequestDispatcher(IConstant.SIGN_IN_PAGE).forward(request, response);
+            }
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
             response.sendRedirect(IConstant.HOME_PAGE);
+
         } catch (SQLException ex) {
-            request.setAttribute("error", "Wrong user name or password");
-            request.getRequestDispatcher(IConstant.SIGN_IN_PAGE).forward(request, response);
+            Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    private void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("account");
         response.sendRedirect(IConstant.HOME_PAGE);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -83,6 +87,9 @@ public class AccountController extends HttpServlet {
             action = "read";
         }
         switch (action) {
+            case "signOut":
+                signOut(request, response);
+                break;
             case "read":
                 readAccount(request, response);
                 break;

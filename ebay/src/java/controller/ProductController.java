@@ -17,21 +17,23 @@ import model.ProductDTO;
 
 public class ProductController extends HttpServlet {
 
+    private final static ProductDAO dao = ProductDAO.getInstance();
+
     private void readProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String selectedCategoryId = request.getParameter("selectedCategoryId");
-        ProductDAO productDao = ProductDAO.getInstance();
+
         List<ProductDTO> products = null;
 
         if (selectedCategoryId == null) {
             try {
-                products = productDao.selectAllProducts();
+                products = dao.selectAllProducts();
             } catch (SQLException ex) {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             try {
-                products = productDao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
+                products = dao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
             } catch (SQLException ex) {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -41,19 +43,19 @@ public class ProductController extends HttpServlet {
         response.sendRedirect("home.jsp");
     }
 
-    private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        // co the phai kiem tra quyen truy cap
-        
+    private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Ngan
+
     }
-    
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        
+
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TuAnh
     }
-    
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        
+
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Giang
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -68,7 +70,7 @@ public class ProductController extends HttpServlet {
             case "delete":
                 deleteProduct(request, response);
                 break;
-            case "create" :
+            case "create":
                 // chuyen huong trang 
                 break;
             case "update":
@@ -85,7 +87,7 @@ public class ProductController extends HttpServlet {
             action = "read";
         }
         switch (action) {
-            case "create" :
+            case "create":
                 createProduct(request, response);
                 break;
             case "update":

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,8 +14,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-start">
-                        <a href="#" class="text-decoration-none me-3">Sign in</a>
-                        <a href="registration-form.jsp" class="text-decoration-none me-3">Register</a>
+                        <c:choose>
+                            <c:when test="${sessionScope.account == null}">
+                                <a href="sign-in-form.jsp" class="text-decoration-none me-3">Sign in</a>
+                                <a href="registration-form.jsp" class="text-decoration-none me-3">Register</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="text-decoration-none me-3" href="#">Hello ${sessionScope.account.userName}</a>
+                                <a class="text-decoration-none me-3" href="account?action=signOut">Sign out</a>
+                            </c:otherwise>
+                        </c:choose>
                         <a href="#" class="text-decoration-none me-3">Daily Deals</a>
                         <a href="#" class="text-decoration-none me-3">Help & Contact</a>
                         <a href="#" class="text-decoration-none me-3">Cart</a>
@@ -24,7 +33,7 @@
             <div class="container">
                 <div class="row d-flex align-items-center">
                     <div class="col-md-2">
-                    <img src="assets/image/logo.png" width="200px" height="75px">
+                        <img src="assets/image/logo.png" width="200px" height="75px">
                     </div>
 
                     <div class="col-md-10">
@@ -33,9 +42,8 @@
                             <button class="btn rounded-pill" style="background-color: #007bff; color: white;" type="submit">Search</button>
                         </form>
                     </div>
-            </div>
-            
+                </div>
+
         </header>
     </body>
 </html>
-    
