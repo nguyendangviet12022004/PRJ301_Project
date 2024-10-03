@@ -1,5 +1,6 @@
 package controller;
 
+import constant.IConstant;
 import dao.ProductDAO;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
@@ -44,7 +45,23 @@ public class ProductController extends HttpServlet {
     }
 
     private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Ngan
+        try {
+            String name = request.getParameter("name");
+            int stock = Integer.parseInt(request.getParameter("stock"));
+            int price = Integer.parseInt(request.getParameter("price"));
+            int category_id = Integer.parseInt(request.getParameter("categoryId"));
+            String image = request.getParameter("image");
+            
+            dao.insertProduct(name, stock, price, category_id, image);
+            request.setAttribute("info", "Create Product Successfullly");
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+        } catch (NumberFormatException ex) {
+            request.setAttribute("error", "Wrong Format");
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+        } catch (SQLException ex) {
+            request.setAttribute("error", "Sql error");
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+        }
 
     }
 
@@ -60,6 +77,7 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");// co the la attribute
+
         if (action == null) {
             action = "read";
         }
@@ -71,7 +89,7 @@ public class ProductController extends HttpServlet {
                 deleteProduct(request, response);
                 break;
             case "create":
-                // chuyen huong trang 
+                // chuyen huong trang
                 break;
             case "update":
                 // them du lieu, chuyen huong trang
