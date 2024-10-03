@@ -38,6 +38,8 @@
                             <label for="password">Password</label>
                         </div>
                         
+                        <a href="#" class="mb-2">Forget your password</a></br>
+                        
                         <button type="submit" class="btn btn-primary">Login</button> 
                         
                     </form>

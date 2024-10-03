@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-md-5 d-flex align-items-center justify-content-end">
-                    <span><p>Already have an account?</p></span>
+                    <span><p class="mb-0">Already have an account?</p></span>
                     <span><a href="#">Sign in</a></span>
                 </div>
             </div>
