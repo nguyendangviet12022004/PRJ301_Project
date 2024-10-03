@@ -66,11 +66,12 @@ public class ProductController extends HttpServlet {
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TuAnh
+        // Tu Anh
     }
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Giang
+        // Tu Anh
+        
     }
 
     @Override
