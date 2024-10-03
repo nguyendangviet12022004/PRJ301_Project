@@ -29,11 +29,11 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <img src="assets/image/buyer_dweb_individual.jpg" style="border-radius: 15px; width: 713px;">
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4 d-flex justify-content-start">
                     <form action="account" method="POST" class="form text-center">
 
                         <input type="hidden" name="action" value="create">
@@ -46,13 +46,9 @@
                             <input name="password" type="password" class="form-control" placeholder="" required>
                             <label for="password">Password</label>
                         </div>
-
-
+                        
                         <button type="submit" class="btn btn-primary">Create</button> 
-                        <p class=""></p>
-
-
-                        <p class="my-3"><a href="#" target="target">Forget Your Password ?</a></p>
+                        
                         <c:if test ="${requestScope.error != null}">
                             <div class="alert alert-danger" role="alert">
                                 ${requestScope.error}
