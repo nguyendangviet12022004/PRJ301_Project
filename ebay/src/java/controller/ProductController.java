@@ -1,5 +1,6 @@
 package controller;
 
+import constant.IConstant;
 import dao.ProductDAO;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
@@ -17,21 +18,23 @@ import model.ProductDTO;
 
 public class ProductController extends HttpServlet {
 
+    private final static ProductDAO dao = ProductDAO.getInstance();
+
     private void readProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String selectedCategoryId = request.getParameter("selectedCategoryId");
-        ProductDAO productDao = ProductDAO.getInstance();
+
         List<ProductDTO> products = null;
 
         if (selectedCategoryId == null) {
             try {
-                products = productDao.selectAllProducts();
+                products = dao.selectAllProducts();
             } catch (SQLException ex) {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             try {
-                products = productDao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
+                products = dao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
             } catch (SQLException ex) {
                 Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -41,23 +44,41 @@ public class ProductController extends HttpServlet {
         response.sendRedirect("home.jsp");
     }
 
-    private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        // co the phai kiem tra quyen truy cap
+    private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String name = request.getParameter("name");
+            int stock = Integer.parseInt(request.getParameter("stock"));
+            int price = Integer.parseInt(request.getParameter("price"));
+            int category_id = Integer.parseInt(request.getParameter("categoryId"));
+            String image = request.getParameter("image");
+            
+            dao.insertProduct(name, stock, price, category_id, image);
+            request.setAttribute("info", "Create Product Successfullly");
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+        } catch (NumberFormatException ex) {
+            request.setAttribute("error", "Wrong Format");
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+        } catch (SQLException ex) {
+            request.setAttribute("error", "Sql error");
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+        }
+
+    }
+
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Tu Anh
+    }
+
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Tu Anh
         
     }
-    
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        
-    }
-    
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        
-    }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");// co the la attribute
+
         if (action == null) {
             action = "read";
         }
@@ -68,8 +89,8 @@ public class ProductController extends HttpServlet {
             case "delete":
                 deleteProduct(request, response);
                 break;
-            case "create" :
-                // chuyen huong trang 
+            case "create":
+                // chuyen huong trang
                 break;
             case "update":
                 // them du lieu, chuyen huong trang
@@ -85,7 +106,7 @@ public class ProductController extends HttpServlet {
             action = "read";
         }
         switch (action) {
-            case "create" :
+            case "create":
                 createProduct(request, response);
                 break;
             case "update":

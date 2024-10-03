@@ -45,6 +45,10 @@ public class AccountDAO {
         return accounts;
     }
     
+    public List<AccountDTO> selectAllUsers() {
+        
+        return null;
+    }
     public AccountDTO selectAccount(String userName, String password) throws SQLException{
         PreparedStatement statement = this.connection.prepareStatement(SELECT_ACCOUNT);
         statement.setString(1, userName);

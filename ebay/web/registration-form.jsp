@@ -1,9 +1,3 @@
-<%-- 
-    Document   : registratrion-form
-    Created on : Sep 28, 2024, 2:19:04 PM
-    Author     : ACER
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,12 +12,12 @@
             <div class="row">
 
                 <div class="col-md-7 d-flex align-items-center justify-content-start">
-                    <img src="assets/image/logo.png">
+                    <a href="home.jsp"><img src="assets/image/logo.png"></a>
                 </div>
 
-                <div class="col-md-5 d-flex align-items-center justify-content-end">
-                    <span><p class="mb-0">Already have an account?</p></span>
-                    <span><a href="#">Sign in</a></span>
+                <div class="col-md-5 d-flex justify-content-end">
+                    <p>Already have an account? <a href="sign-in-form.jsp">Sign in</a></p>
+                    
                 </div>
             </div>
         </div>
@@ -47,15 +41,12 @@
                             <input name="password" type="password" class="form-control" placeholder="" required>
                             <label for="password">Password</label>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary">Create</button> 
-                        
                         <c:if test ="${requestScope.error != null}">
                             <div class="alert alert-danger" role="alert">
                                 ${requestScope.error}
                             </div>
                         </c:if>
-                        
+                        <button type="submit" class="btn btn-primary">Create</button> 
                     </form>
                 </div>
             </div>
