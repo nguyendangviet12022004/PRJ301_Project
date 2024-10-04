@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="constant/IConstant" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,11 +17,21 @@
                         <h5 class="card-title">${product.name}</h5>
                         <p class="text-center text-primary">${product.price} $</p>
                     </div>
-                    <!<!-- Them chuc nang mua hang va them gio hang vao day sau -->
-                    <div class="card-footer d-flex justify-content-between">
-                        <button class="btn btn-primary">Add To Cart</button>
-                        <button class="btn btn-primary">Buy Now</button>
-                    </div>
+                    <c:choose>
+                        <c:when test="${sessionScope.account.role eq 'ADMIN'}">
+                            <div class="card-footer d-flex justify-content-between">
+                                <button class="btn btn-primary">Delete</button>
+                                <button class="btn btn-primary">Update</button>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="card-footer d-flex justify-content-between">
+                                <button class="btn btn-primary">Add To Cart</button>
+                                <button class="btn btn-primary">Buy Now</button>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
             </c:forEach>
         </div>
