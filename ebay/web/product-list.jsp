@@ -9,7 +9,15 @@
     </head>
     <body>
 
-        <div class="d-flex justify-content-evenly flex-wrap gap-3 p-3">
+        <c:if test ="${param.searchKey != null}">
+        <div class="alert alert-success" role="alert">Your Search : ${param.searchKey}</div>
+        </c:if>
+        
+        <c:if test ="${sessionScope.selectedCategory != null}">
+        <div class="alert alert-success" role="alert">${sessionScope.selectedCategory.name}</div>
+        </c:if>
+        
+        <div class="d-flex justify-content-start flex-wrap gap-3 p-3">
             <c:forEach var="product" items="${sessionScope.products}">
                 <div class="card rounded-1" style="width:275px">
                     <img class="card-img-top d-inline-block" src="${product.image}" alt="product image" width="300px" height="200px" >
@@ -35,5 +43,8 @@
                 </div>
             </c:forEach>
         </div>
+        <c:if test ="${sessionScope.products.isEmpty()}">
+            <div class="alert alert-danger" role="alert">No Product</div>
+        </c:if>
     </body>
 </html>

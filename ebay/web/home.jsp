@@ -17,7 +17,7 @@
             <c:redirect url="product"></c:redirect>
         </c:if>
 
-        
+
         <jsp:include flush="true" page="header.jsp"></jsp:include>
         <jsp:include page="category-list.jsp"></jsp:include>
         <jsp:include page="product-list.jsp"></jsp:include>

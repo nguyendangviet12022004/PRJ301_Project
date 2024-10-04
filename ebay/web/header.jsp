@@ -37,8 +37,9 @@
                     </div>
 
                     <div class="col-md-10">
-                        <form class="d-flex">
-                            <input class="form-control me-2 rounded-pill" type="search" placeholder="Search for anything..." aria-label="Search" >
+                        <form class="d-flex" action="product" method="get">
+                            <input hidden name="action" value="search">
+                            <input class="form-control me-2 rounded-pill" name = "searchKey" type="search" placeholder="Search for anything..." aria-label="Search" value="${param.searchKey}">
                             <button class="btn rounded-pill" style="background-color: #007bff; color: white;" type="submit">Search</button>
                         </form>
                     </div>
