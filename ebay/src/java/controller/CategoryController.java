@@ -32,7 +32,11 @@ public class CategoryController extends HttpServlet {
     
     private void createCategories(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException{
-        // Giang
+        String name = request.getParameter("name");
+        String image = request.getParameter("image");
+        
+        
+        
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
