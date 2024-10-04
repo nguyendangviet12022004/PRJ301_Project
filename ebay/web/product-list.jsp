@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="constant/IConstant" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,9 +8,10 @@
         <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
     </head>
     <body>
-        <div class="d-flex justify-content-between flex-wrap w-100" style="gap: 50px">
+
+        <div class="d-flex justify-content-evenly flex-wrap gap-3 p-3">
             <c:forEach var="product" items="${sessionScope.products}">
-                <div class="card" style="width:300px">
+                <div class="card rounded-1" style="width:275px">
                     <img class="card-img-top d-inline-block" src="${product.image}" alt="product image" width="300px" height="200px" >
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h5 class="card-title">${product.name}</h5>
@@ -20,8 +20,8 @@
                     <c:choose>
                         <c:when test="${sessionScope.account.role eq 'ADMIN'}">
                             <div class="card-footer d-flex justify-content-between">
-                                <button class="btn btn-primary">Delete</button>
-                                <button class="btn btn-primary">Update</button>
+                                <a href="product?action=delete&id=${product.id}" class="btn btn-primary">Delete</a>
+                                <a href="product?action=update&id=${product.id}" class="btn btn-primary">Update</a>
                             </div>
                         </c:when>
                         <c:otherwise>

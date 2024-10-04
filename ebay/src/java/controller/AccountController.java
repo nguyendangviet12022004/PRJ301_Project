@@ -22,11 +22,11 @@ public class AccountController extends HttpServlet {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
 
+        HttpSession session = request.getSession();
         try {
             dao.insertAccount(userName, password, IConstant.USER);
             response.sendRedirect(IConstant.SIGN_IN_PAGE);
         } catch (SQLException ex) {
-
             request.setAttribute("error", "Username is exist!!");
             request.getRequestDispatcher(IConstant.REGESTRATION_PAGE).forward(request, response);
         }

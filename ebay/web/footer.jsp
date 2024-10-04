@@ -5,15 +5,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
-        
+        <style>
+            a{
+                font-size: 0.75rem;
+            }
+        </style>
     </head>
     <body>
-
-        <footer class="footer bg-light">
+        <footer class="footer bg-light p-5 " >
             <div class="container-fluid text-black">
                 <div class="row justify-content-between">
                     <div class="col">
-                        <h4>Buy</h4>
+                        <h6>Buy</h6>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-decoration-none text-black-50">Registration</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">Bidding & buying help</a></li>
@@ -25,14 +28,14 @@
                         </ul>
                     </div>
                     <div class="col">
-                        <h4>Sell</h4>
+                        <h6>Sell</h6>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-decoration-none text-black-50">Start selling</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">How to sell</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">Business sellers</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">Affiliates</a></li>
                         </ul>
-                        <h4>Tools & apps</h4>
+                        <h6>Tools & apps</h6>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-decoration-none text-black-50">Developers</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">Security center</a></li>
@@ -40,18 +43,18 @@
                         </ul>
                     </div>
                     <div class="col">
-                        <h4>eBay companies</h4>
+                        <h6>eBay companies</h6>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-decoration-none text-black-50">TCGplayer</a></li>
                         </ul>
-                        <h4>Stay connected</h4>
+                        <h6>Stay connected</h6>
                         <ul class="list-unstyled">
                             <li><a href="https://www.facebook.com/" class="text-decoration-none text-black-50"><img src="assets/img/facebooklogo.png" alt="facebook logo" style="width: 15px;"> Facebook</a></li>
                             <li><a href="https://x.com/" class="text-decoration-none text-black-50"><img src="assets/img/twitterlogo.png" alt="twitterlogo" style="width: 15px;"> Twitter</a></li>
                         </ul>
                     </div>
                     <div class="col">
-                        <h4>About eBay</h4>
+                        <h6>About eBay</h6>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-decoration-none text-black-50">Company info</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">News</a></li>
@@ -68,23 +71,21 @@
                         </ul>
                     </div>
                     <div class="col">
-                        <h4>Help & Contact</h4>
+                        <h6>Help & Contact</h6>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-decoration-none text-black-50">Seller Center</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">Contact Us</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">eBay Returns</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">eBay Money Back Guarantee</a></li>
                         </ul>
-                        <h4>Community</h4>
+                        <h6>Community</h6>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-decoration-none text-black-50">Announcements</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">eBay Community</a></li>
                             <li><a href="#" class="text-decoration-none text-black-50">eBay for Business Podcast</a></li>
                         </ul>
-                        <h4>eBay Sites</h4>
-                        <ul class="list-unstyled">
-                            <li style="color: gray;"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="US Flag" style="width: 20px;"> United States</li>
-                        </ul>
+                        <h6>eBay Sites</h6>
+                        
                     </div>
                 </div>
             </div>

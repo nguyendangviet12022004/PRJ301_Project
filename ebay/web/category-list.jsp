@@ -9,6 +9,12 @@
     </head>
     <body>
         <div class="container d-flex flex-wrap justify-content-between">
+            <a href="product">
+                <div>
+                    <img src="assets/image/AllCategoriesIcon.png" alt="alt" width="150px" height="150px"  class="rounded-circle"/>
+                    <p class="text-center">All</p>
+                </div>
+            </a>
             <c:forEach items="${sessionScope.categories}" var="category">
                 <a href="product?selectedCategoryId=${category.id}">
                 <div>

@@ -20,28 +20,33 @@ public class ProductController extends HttpServlet {
 
     private final static ProductDAO dao = ProductDAO.getInstance();
 
+    private void reloadProducts(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.removeAttribute("products");
+    }
+    
     private void readProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String src = request.getParameter("src");
         HttpSession session = request.getSession();
         String selectedCategoryId = request.getParameter("selectedCategoryId");
-
-        List<ProductDTO> products = null;
-
-        if (selectedCategoryId == null) {
-            try {
-                products = dao.selectAllProducts();
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
-                products = dao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        
+        if(src == null){
+            src = IConstant.HOME_PAGE;
         }
-        session.setAttribute("selectedCategoryId", selectedCategoryId);
-        session.setAttribute("products", products);
-        response.sendRedirect("home.jsp");
+        
+        List<ProductDTO> products = null;
+        try {
+            if(selectedCategoryId == null){
+                products = dao.selectAllProducts();
+            }
+            else{
+                products = dao.selectProductsByCategoryId(Integer.parseInt(selectedCategoryId));
+            }
+            session.setAttribute("products", products);
+            response.sendRedirect(src);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void createProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,6 +59,7 @@ public class ProductController extends HttpServlet {
             
             dao.insertProduct(name, stock, price, category_id, image);
             request.setAttribute("info", "Create Product Successfullly");
+            reloadProducts(request, response);
             request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
         } catch (NumberFormatException ex) {
             request.setAttribute("error", "Wrong Format");
@@ -66,7 +72,6 @@ public class ProductController extends HttpServlet {
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Tu Anh
         try {
             String id = request.getParameter("id");
             String name = request.getParameter("name");
@@ -77,6 +82,7 @@ public class ProductController extends HttpServlet {
             
             dao.updateProduct(Integer.parseInt(id), name, stock, price, category_id, image);
             request.setAttribute("info", "Update Product Successfullly");
+            reloadProducts(request, response);
             request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
         } catch (NumberFormatException ex) {
             request.setAttribute("error", "Wrong Format");
@@ -88,12 +94,12 @@ public class ProductController extends HttpServlet {
 
     }
 
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Tu Anh    
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
         try {
             String id = request.getParameter("id");
             dao.deleteProduct(Integer.parseInt(id));
-            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+            readProducts(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_LIST_PAGE).forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,16 +108,18 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");// co the la attribute
+        String action = request.getParameter("action");
 
         if (action == null) {
             action = "read";
         }
+        
         switch (action) {
             case "read":
                 readProducts(request, response);
                 break;
             case "delete":
+                PrintWriter out = response.getWriter();
                 deleteProduct(request, response);
                 break;
             case "create":
