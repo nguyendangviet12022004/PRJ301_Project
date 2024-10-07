@@ -5,18 +5,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
-        <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
     </head>
     <body>
 
         <c:if test ="${param.searchKey != null}">
-        <div class="alert alert-success" role="alert">Your Search : ${param.searchKey}</div>
+            <div class="alert alert-success" role="alert">Your Search : ${param.searchKey}</div>
         </c:if>
-        
+
         <c:if test ="${sessionScope.selectedCategory != null}">
-        <div class="alert alert-success" role="alert">${sessionScope.selectedCategory.name}</div>
+            <div class="alert alert-success" role="alert">${sessionScope.selectedCategory.name}</div>
         </c:if>
-        
+
         <div class="d-flex justify-content-start flex-wrap gap-3 p-3">
             <c:forEach var="product" items="${sessionScope.products}">
                 <div class="card rounded-1" style="width:275px">

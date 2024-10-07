@@ -45,7 +45,7 @@ public class CategoryController extends HttpServlet {
             dao.insertCategory(name, image);
         } catch (SQLException ex) {
             request.setAttribute("error", "Wrong Format");
-            request.getRequestDispatcher(IConstant.CATEGORY_FORM_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.CATEGORY_LIST).forward(request, response);
         }
         
         

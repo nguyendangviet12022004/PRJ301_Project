@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
         <style>
             a{
                 font-size: 0.75rem;
@@ -49,8 +49,8 @@
                         </ul>
                         <h6>Stay connected</h6>
                         <ul class="list-unstyled">
-                            <li><a href="https://www.facebook.com/" class="text-decoration-none text-black-50"><img src="assets/img/facebooklogo.png" alt="facebook logo" style="width: 15px;"> Facebook</a></li>
-                            <li><a href="https://x.com/" class="text-decoration-none text-black-50"><img src="assets/img/twitterlogo.png" alt="twitterlogo" style="width: 15px;"> Twitter</a></li>
+                            <li><a href="https://www.facebook.com/" class="text-decoration-none text-black-50"><img src="assets/image/facebooklogo.png" alt="facebook logo" style="width: 15px;"> Facebook</a></li>
+                            <li><a href="https://x.com/" class="text-decoration-none text-black-50"><img src="assets/image/twitterlogo.png" alt="twitterlogo" style="width: 15px;"> Twitter</a></li>
                         </ul>
                     </div>
                     <div class="col">

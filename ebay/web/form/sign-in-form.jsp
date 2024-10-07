@@ -5,14 +5,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign In Page</title>
-        <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
     </head>
     <body>       
         <div class="container-fluid">
             <div class="row">
 
                 <div class="col-md-7 d-flex align-items-center justify-content-start">
-                    <a href="home.jsp"><img src="assets/image/logo.png"></a>
+                    <a href="home.jsp"><img src="../assets/image/logo.png"></a>
                 </div>
 
                 <div class="col-md-5 d-flex justify-content-end">

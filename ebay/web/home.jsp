@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,9 +19,9 @@
         </c:if>
 
 
-        <jsp:include flush="true" page="header.jsp"></jsp:include>
-        <jsp:include page="category-list.jsp"></jsp:include>
-        <jsp:include page="product-list.jsp"></jsp:include>
-        <jsp:include page="footer.jsp"></jsp:include>
+        <jsp:include page="common/header.jsp"></jsp:include>
+        <jsp:include page="list/category-list.jsp"></jsp:include>
+        <jsp:include page="list/product-list.jsp"></jsp:include>
+        <jsp:include page="common/footer.jsp"></jsp:include>
     </body>
 </html>

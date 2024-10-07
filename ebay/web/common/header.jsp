@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>eBay Header with Bootstrap</title>
-        <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
 
     </head>
     <body>
@@ -16,8 +16,8 @@
                     <div class="col-12 text-start">
                         <c:choose>
                             <c:when test="${sessionScope.account == null}">
-                                <a href="sign-in-form.jsp" class="text-decoration-none me-3">Sign in</a>
-                                <a href="registration-form.jsp" class="text-decoration-none me-3">Register</a>
+                                <a href="form/sign-in-form.jsp" class="text-decoration-none me-3">Sign in</a>
+                                <a href="form/registration-form.jsp" class="text-decoration-none me-3">Register</a>
                             </c:when>
                             <c:otherwise>
                                 <a class="text-decoration-none me-3" href="#">Hello ${sessionScope.account.userName}</a>

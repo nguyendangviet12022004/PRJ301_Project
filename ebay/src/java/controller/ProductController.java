@@ -68,6 +68,7 @@ public class ProductController extends HttpServlet {
             } else {
                 products = dao.selectProductsBySearchKey(searchKey);
                 session.setAttribute("products", products);
+                session.removeAttribute("selectedCategory");
                 request.getRequestDispatcher(src).forward(request, response);
             }
 
@@ -88,13 +89,13 @@ public class ProductController extends HttpServlet {
             dao.insertProduct(name, stock, price, category_id, image);
             request.setAttribute("info", "Create Product Successfullly");
             reloadProducts(request, response);
-            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         } catch (NumberFormatException ex) {
             request.setAttribute("error", "Wrong Format");
-            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         } catch (SQLException ex) {
             request.setAttribute("error", "Sql error");
-            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         }
 
     }
@@ -111,13 +112,13 @@ public class ProductController extends HttpServlet {
             dao.updateProduct(Integer.parseInt(id), name, stock, price, category_id, image);
             request.setAttribute("info", "Update Product Successfullly");
             reloadProducts(request, response);
-            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         } catch (NumberFormatException ex) {
             request.setAttribute("error", "Wrong Format");
-            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         } catch (SQLException ex) {
             request.setAttribute("error", "Sql error");
-            request.getRequestDispatcher(IConstant.PRODUCT_FORM_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         }
 
     }
@@ -127,7 +128,7 @@ public class ProductController extends HttpServlet {
             String id = request.getParameter("id");
             dao.deleteProduct(Integer.parseInt(id));
             readProducts(request, response);
-            request.getRequestDispatcher(IConstant.PRODUCT_LIST_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_LIST).forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
