@@ -1,5 +1,6 @@
 package controller;
 
+import constant.IConstant;
 import dao.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 import model.CategoryDTO;
 
 public class CategoryController extends HttpServlet {
-    
+    private final static CategoryDAO dao = CategoryDAO.getInstance();
     private void readCategories(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -34,7 +35,12 @@ public class CategoryController extends HttpServlet {
     throws ServletException, IOException{
         String name = request.getParameter("name");
         String image = request.getParameter("image");
-        
+        try {
+            dao.insertCategory(name, image);
+        } catch (SQLException ex) {
+            request.setAttribute("error", "Wrong Format");
+            request.getRequestDispatcher(IConstant.CATEGORY_FORM_PAGE).forward(request, response);
+        }
         
         
     }
