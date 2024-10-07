@@ -26,7 +26,7 @@ public class AccountController extends HttpServlet {
             dao.insertAccount(userName, password, IConstant.USER);
             response.sendRedirect(IConstant.SIGN_IN_FORM);
         } catch (SQLException ex) {
-            request.setAttribute("error", "Username is exist!!");
+            request.setAttribute("error", "Username is exist");
             request.getRequestDispatcher(IConstant.REGESTRATION_PAGE).forward(request, response);
         }
         
