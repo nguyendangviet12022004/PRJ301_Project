@@ -16,19 +16,25 @@ import java.util.logging.Logger;
 import model.CategoryDTO;
 
 public class CategoryController extends HttpServlet {
+
     private final static CategoryDAO dao = CategoryDAO.getInstance();
     private void readCategories(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        CategoryDAO categoryDao = CategoryDAO.getInstance();
+        
+        String src = request.getParameter("src");
+        if(src == null) src = IConstant.HOME_PAGE;
+        
         List<CategoryDTO> categories = null;
+        
         try {
-            categories = categoryDao.selectAllCategories();
+            categories = dao.selectAllCategories();
+            session.setAttribute("categories", categories);
+            response.sendRedirect(src);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        session.setAttribute("categories", categories);
-        response.sendRedirect("home.jsp");
+        
     } 
     
     private void createCategories(HttpServletRequest request, HttpServletResponse response)

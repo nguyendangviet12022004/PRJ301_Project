@@ -8,5 +8,9 @@ public interface IConstant {
     public String ACCOUNT_LIST_PAGE = "account-list.jsp";
     public String SIGN_IN_PAGE = "sign-in-form.jsp";
     public String PRODUCT_FORM_PAGE = "product-form.jsp";
+
     public String CATEGORY_FORM_PAGE = "category-list.jsp";
+
+    public String PRODUCT_LIST_PAGE = "product-list.jsp";
+
 }
