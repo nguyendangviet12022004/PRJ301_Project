@@ -27,7 +27,7 @@ public class AccountController extends HttpServlet {
             response.sendRedirect(IConstant.SIGN_IN_FORM);
         } catch (SQLException ex) {
             request.setAttribute("error", "Username is exist");
-            request.getRequestDispatcher(IConstant.REGESTRATION_PAGE).forward(request, response);
+            request.getRequestDispatcher(IConstant.REGESTRATION_FORM).forward(request, response);
         }
         
     }
@@ -78,7 +78,7 @@ public class AccountController extends HttpServlet {
     
     private void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.removeAttribute("account");
+        session.invalidate();
         response.sendRedirect(IConstant.HOME_PAGE);
     }
     
