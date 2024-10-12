@@ -11,7 +11,7 @@
     <body>
         <jsp:include page="../common/header.jsp"></jsp:include>
         <c:choose>
-            <c:when test="${empty sessionScope.cart or sessionScope.cart.size() == 0 }">
+            <c:when test="${empty sessionScope.cart or sessionScope.cart.cartMap.size() == 0}">
                 <div class="alert alert-danger" role="alert">No Product Added</div>
             </c:when>
             <c:otherwise>
@@ -46,7 +46,12 @@
                             <td></td>
                             <td></td>
                             <td>${sessionScope.cart.getTotal()}</td>
-                            <td></td>
+                            <td>
+                                <form action="/ebay/order" method="get">
+                                    <input name="action" value="create" hidden>
+                                    <button class="btn btn-primary">Order Now</button>
+                                </form>
+                            </td>
                             <td></td>
                         </tr>
 
@@ -55,6 +60,7 @@
                 </table>
             </c:otherwise>
         </c:choose>
+
 
         <jsp:include page="../common/footer.jsp"></jsp:include>
     </body>

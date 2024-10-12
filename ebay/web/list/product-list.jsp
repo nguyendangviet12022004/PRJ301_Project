@@ -31,7 +31,7 @@
                     <c:choose>
                         <c:when test="${sessionScope.account.role eq 'ADMIN'}">
                             <div class="card-footer d-flex justify-content-between">
-                                <a href="/ebay/product?action=delete&id=${product.id}" class="btn btn-primary">Delete</a>
+                                <a href="/ebay/product?action=delete&id=${product.id}" class="btn btn-danger">Delete</a>
                                 <a href="/ebay/product?action=update&id=${product.id}" class="btn btn-primary">Update</a>
                             </div>
                         </c:when>

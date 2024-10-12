@@ -49,7 +49,7 @@
                     ${requestScope.info}
                 </div>
             </c:if>
-            <button type="submit" class="btn btn-primary text-uppercase">Submit</button>
+                <button type="submit" class="btn btn-primary text-uppercase">${param.action}</button>
         </form>
     </body>
 </html>

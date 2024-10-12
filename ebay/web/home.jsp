@@ -29,7 +29,7 @@
         <jsp:include page="list/category-list.jsp"></jsp:include>
         
         <c:if test= "${sessionScope.account.role eq 'ADMIN'}">
-            <form action="/ebay/product" method="get" class="mx-3">
+            <form action="/ebay/product" method="get" class="m-3">
                 <input type="text" name="action" value="create" hidden>
                 <button class="btn btn-success" type="submit">Add Product</button>
             </form>
