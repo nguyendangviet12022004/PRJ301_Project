@@ -13,11 +13,11 @@
             <div class="row">
 
                 <div class="col-md-7 d-flex align-items-center justify-content-start">
-                    <a href="home.jsp"><img src="../assets/image/logo.png"></a>
+                    <a href="/ebay/home.jsp"><img src="/ebay/assets/image/logo.png"></a>
                 </div>
 
                 <div class="col-md-5 d-flex justify-content-end">
-                    <p>Already have an account? <a href="sign-in-form.jsp">Sign in</a></p>
+                    <p>Already have an account? <a href="/ebay/form/sign-in-form.jsp">Sign in</a></p>
 
                 </div>
             </div>
@@ -26,11 +26,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
-                    <img src="../assets/image/buyer_dweb_individual.jpg" style="border-radius: 15px; width: 713px;">
+                    <img src="/ebay/assets/image/buyer_dweb_individual.jpg" style="border-radius: 15px; width: 713px;">
                 </div>
 
                 <div class="col-md-4 d-flex justify-content-start">
-                    <form action="account" method="POST" class="form text-center">
+                    <form action="/ebay/account" method="POST" class="form text-center">
 
                         <input type="hidden" name="action" value="create">
                         <h1>Create an account</h1>

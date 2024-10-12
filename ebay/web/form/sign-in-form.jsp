@@ -13,7 +13,7 @@
             <div class="row">
 
                 <div class="col-md-7 d-flex align-items-center justify-content-start">
-                    <a href="home.jsp"><img src="../assets/image/logo.png"></a>
+                    <a href="/ebay/home.jsp"><img src="/ebay/assets/image/logo.png"></a>
                 </div>
 
                 <div class="col-md-5 d-flex justify-content-end">
@@ -22,7 +22,7 @@
 
 
                 <div class="d-flex justify-content-center">
-                    <form action="account" method="POST" class="form text-center">
+                    <form action="/ebay/account" method="POST" class="form text-center">
 
                         <h3 class="d-flex justify-content-center">Sign in to your account</h3>
 

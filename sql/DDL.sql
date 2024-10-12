@@ -157,3 +157,5 @@ VALUES
 ('user48', 'password9013', 'USER'),
 ('user49', 'password0124', 'USER'),
 ('user50', 'password1235', 'ADMIN');
+
+

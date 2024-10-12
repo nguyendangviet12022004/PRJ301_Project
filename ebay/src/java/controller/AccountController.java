@@ -65,11 +65,7 @@ public class AccountController extends HttpServlet {
             }
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            if (account.getRole().equals(IConstant.USER)) {
-                response.sendRedirect(IConstant.HOME_PAGE);
-            } else {
-                response.sendRedirect(IConstant.ADMIN_PAGE);
-            }
+            response.sendRedirect(IConstant.HOME_PAGE);
             
         } catch (SQLException ex) {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);

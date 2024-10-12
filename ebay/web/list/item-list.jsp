@@ -9,34 +9,53 @@
 
     </head>
     <body>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="entry" items="${sessionScope.cart.cartMap}">
-                    <tr>
-                        <td>${entry.key.name}</td>
-                        <td>${entry.value}</td>
-                        <td>${entry.key.price}</td>
-                        <td>${entry.key.price * entry.value}</td>
-                    </tr>
-                </c:forEach>
-                <tr>
-                    <td>Total</td>
-                    <td></td>
-                    <td></td>
-                    <td>${sessionScope.cart.getTotal()}</td>
-                </tr>
+        <jsp:include page="../common/header.jsp"></jsp:include>
+        <c:choose>
+            <c:when test="${empty sessionScope.cart or sessionScope.cart.size() == 0 }">
+                <div class="alert alert-danger" role="alert">No Product Added</div>
+            </c:when>
+            <c:otherwise>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Amount</th>
+                            <th>Delete</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            </tbody>
+                        <c:forEach var="entry" items="${sessionScope.cart.cartMap}">
+                            <tr>
+                                <td><img src="${entry.key.image}" width="100px"></td>
+                                <td>${entry.key.name}</td>
+                                <td>${entry.value}</td>
+                                <td>${entry.key.price}</td>
+                                <td>${entry.key.price * entry.value}</td>
+                                <td><a href="../cart?action=delete&id=${entry.key.id}">Delete</a></td>
+                                <td><a href="../cart?action=update&id=${entry.key.id}">Update</a></td>
+                            </tr>
+                        </c:forEach>
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${sessionScope.cart.getTotal()}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
 
-        </table>
+                    </tbody>
+
+                </table>
+            </c:otherwise>
+        </c:choose>
+
         <jsp:include page="../common/footer.jsp"></jsp:include>
     </body>
 </html>

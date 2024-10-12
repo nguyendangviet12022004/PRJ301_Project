@@ -50,8 +50,8 @@
                         </ul>
                         <h6>Stay connected</h6>
                         <ul class="list-unstyled">
-                            <li><a href="https://www.facebook.com/" class="text-decoration-none text-black-50"><img src="../assets/image/facebooklogo.png" alt="facebook logo" style="width: 15px;"> Facebook</a></li>
-                            <li><a href="https://x.com/" class="text-decoration-none text-black-50"><img src="../assets/image/twitterlogo.png" alt="twitterlogo" style="width: 15px;"> Twitter</a></li>
+                            <li><a href="https://www.facebook.com/" class="text-decoration-none text-black-50"> Facebook</a></li>
+                            <li><a href="https://x.com/" class="text-decoration-none text-black-50"> Twitter</a></li>
                         </ul>
                     </div>
                     <div class="col">

@@ -13,7 +13,7 @@
         <form action="cart" method="post" class="container-fluid">
             <img src="${requestScope.product.image}" width="300px"/>
             <input name="id" value = "${requestScope.product.id}" hidden>
-            <input name="action" value="create" hidden>
+            <input name="action" value="${param.action}" hidden>
             <div class="form-group my-3">
                 <label for= "name">Product</label>
                 <input name = "name" value = "${requestScope.product.name}" class="form-control" readonly>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group my-3">
                 <label for= "quantity">Quantity</label>
-                <input type = "number" name = "quantity" min="1" max="${requestScope.product.stock}" class="form-control" required="" >
+                <input type = "number" name = "quantity" min="1" max="${requestScope.product.stock}" class="form-control" required="" value="${requestScope.quantity}" >
             </div>
 
             <button class="btn btn-primary">${requestScope.btn}</button>

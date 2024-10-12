@@ -10,6 +10,7 @@
     </head>
     <body>
 
+
         <c:if test ="${param.searchKey != null}">
             <div class="alert alert-success" role="alert">Your Search : ${param.searchKey}</div>
         </c:if>
@@ -18,6 +19,7 @@
             <div class="alert alert-success" role="alert">${sessionScope.selectedCategory.name}</div>
         </c:if>
 
+        
         <div class="d-flex justify-content-start flex-wrap gap-3 p-3">
             <c:forEach var="product" items="${sessionScope.products}">
                 <div class="card rounded-1" style="width:275px">
@@ -29,13 +31,13 @@
                     <c:choose>
                         <c:when test="${sessionScope.account.role eq 'ADMIN'}">
                             <div class="card-footer d-flex justify-content-between">
-                                <a href="product?action=delete&id=${product.id}" class="btn btn-primary">Delete</a>
-                                <a href="product?action=update&id=${product.id}" class="btn btn-primary">Update</a>
+                                <a href="/ebay/product?action=delete&id=${product.id}" class="btn btn-primary">Delete</a>
+                                <a href="/ebay/product?action=update&id=${product.id}" class="btn btn-primary">Update</a>
                             </div>
                         </c:when>
                         <c:otherwise>
                             <div class="card-footer d-flex justify-content-between">
-                                <a href="cart?action=create&id=${product.id}" class="btn btn-primary">Add To Cart</a>
+                                <a href="/ebay/cart?action=create&id=${product.id}" class="btn btn-primary">Add To Cart</a>
                                 <button class="btn btn-primary">Buy Now</button>
                             </div>
                         </c:otherwise>

@@ -8,21 +8,25 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     </head>
-    <body class="d-flex justify-content-center">
+    <body>
+        <div class="">
+            <a href="/ebay/home.jsp"><img src="/ebay/assets/image/logo.png"></a>
+        </div>
 
-        <form action="product" method="post" class="d-flex flex-column g-2 w-75">
-            <input type="text" name="action" value="create" hidden>
-            <input type="text" name="id" value="" hidden>
+ 
+        <form action="product" method="post" class="d-flex flex-column g-2 w-100">
+            <input type="text" name="action" value="${param.action}" hidden>
+            <input type="text" name="id" value="${requestScope.product.id}" hidden>
             <div class="form-floating my-1">
-                <input type="text" name="name"  required class="form-control" placeholder="">
+                <input type="text" name="name"  required class="form-control" placeholder="" value="${requestScope.product.name}">
                 <label for="name">Name</label>
             </div>
             <div class="form-floating my-1">
-                <input type="number" name="stock"  required class="form-control" placeholder="" min="0" >
+                <input type="number" name="stock"  required class="form-control" placeholder="" min="0" value="${requestScope.product.stock}">
                 <label for="stock">Stock</label>
             </div>
             <div class="form-floating my-1">
-                <input type="number" name="price"  required class="form-control " placeholder=""  min="0">
+                <input type="number" name="price"  required class="form-control " placeholder=""  min="0" value="${requestScope.product.price}">
                 <label for="price">Price</label>
             </div>
             <select class="form-control my-1" name="categoryId">
@@ -31,7 +35,7 @@
                 </c:forEach>
             </select>
             <div class="form-floating my-1">
-                <input type="text" name="image"  required class="form-control " placeholder="">
+                <input type="text" name="image"  required class="form-control " placeholder="" value="${requestScope.product.image}">
                 <label for="image">Image Link</label>
             </div>
 

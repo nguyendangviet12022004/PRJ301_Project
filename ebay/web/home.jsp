@@ -21,7 +21,20 @@
 
 
         <jsp:include page="common/header.jsp"></jsp:include>
+        
+        <c:if test ="${requestScope.info != null}">
+            <div class="alert alert-success" role="alert">${requestScope.info}</div>
+        </c:if>
+        
         <jsp:include page="list/category-list.jsp"></jsp:include>
+        
+        <c:if test= "${sessionScope.account.role eq 'ADMIN'}">
+            <form action="/ebay/product" method="get" class="mx-3">
+                <input type="text" name="action" value="create" hidden>
+                <button class="btn btn-success" type="submit">Add Product</button>
+            </form>
+        </c:if>
+         
         <jsp:include page="list/product-list.jsp"></jsp:include>
         <jsp:include page="common/footer.jsp"></jsp:include>
     </body>
