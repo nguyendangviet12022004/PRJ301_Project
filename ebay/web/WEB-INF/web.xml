@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <filter>
+        <filter-name>CartFilter</filter-name>
+        <filter-class>filter.CartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CartFilter</filter-name>
+        <servlet-name>CartController</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>ProductController</servlet-name>
         <servlet-class>controller.ProductController</servlet-class>
