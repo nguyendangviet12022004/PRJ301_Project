@@ -31,7 +31,7 @@
                             <a href="registration-form.jsp">Create Account</a>
                         </div>
 
-                        <input type="hidden" name="action" value="login">
+                        <input type="hidden" name="action" value="signIn">
                         <div class="form-floating my-3">
                             <input name="userName" type="text" class="form-control" placeholder="" required>
                             <label for="userName">User Name</label>
@@ -47,7 +47,7 @@
                             </div>
                         </c:if>
 
-                        <button type="submit" class="btn btn-primary">Login</button> 
+                        <button type="submit" class="btn btn-primary">Sign In</button> 
 
                     </form>
 

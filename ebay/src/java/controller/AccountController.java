@@ -112,7 +112,7 @@ public class AccountController extends HttpServlet {
                 break;
             case "update":
                 break;
-            case "login":
+            case "signIn":
                 signIn(request, response);
                 break;
         }
