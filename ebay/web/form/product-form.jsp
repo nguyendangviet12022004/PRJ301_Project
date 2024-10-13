@@ -31,7 +31,7 @@
             </div>
             <select class="form-control my-1" name="categoryId">
                 <c:forEach items="${sessionScope.categories}" var="category">
-                    <option value="${category.id}">${category.name}</option>
+                    <option value="${category.id}" ${requestScope.product.category.id == category.id ? 'selected' : ''}>${category.name}</option>
                 </c:forEach>
             </select>
             <div class="form-floating my-1">

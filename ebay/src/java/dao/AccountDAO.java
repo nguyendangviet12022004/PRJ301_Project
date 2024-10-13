@@ -13,6 +13,7 @@ public class AccountDAO {
     private String SELECT_ACCOUNT = "SELECT * FROM ACCOUNT WHERE [USER_NAME] = ? AND [PASSWORD] = ?";
     private String INSERT_ACCOUNT = "INSERT INTO ACCOUNT([USER_NAME],[PASSWORD],[ROLE]) VALUES(?,?,?)";
     private String DELETE_ACCOUNT = "DELETE FROM ACCOUNT WHERE [USER_NAME] = ?";
+    private String SELECT_ACCOUNT_BY_USER_NAME = "SELECT * FROM ACCOUNT WHERE [USER_NAME] = ? ";
     
     private static AccountDAO instance;
     private Connection connection;
@@ -45,6 +46,8 @@ public class AccountDAO {
         return accounts;
     }
     
+    
+    
     public List<AccountDTO> selectAllUsers() {
         
         return null;
@@ -63,6 +66,19 @@ public class AccountDAO {
         return account;
     }
     
+    public AccountDTO selectAccountByUserName(String userName) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(SELECT_ACCOUNT_BY_USER_NAME);
+        statement.setString(1, userName);
+        ResultSet result = statement.executeQuery();
+        AccountDTO account = null;
+        if(result.next()){
+            
+            String role = result.getString("role");
+            String password = result.getString("password");
+            account = new AccountDTO(userName, password, role);
+        }
+        return account;
+    }
     public void insertAccount(String userName,String password, String role) throws SQLException{
         PreparedStatement statement = this.connection.prepareStatement(INSERT_ACCOUNT);
         statement.setString(1, userName);       
@@ -81,6 +97,6 @@ public class AccountDAO {
     
     public static void main(String[] args) throws SQLException {
         //getInstance().deleteAccount("user4");
-        System.out.println(getInstance().selectAllAccounts());
+        System.out.println(getInstance().selectAccountByUserName("user1"));
     }
 }

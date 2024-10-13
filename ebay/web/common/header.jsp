@@ -23,14 +23,17 @@
                             <c:otherwise>
                                 <a class="text-decoration-none me-3" href="#">Hello ${sessionScope.account.userName}</a>
                                 <a class="text-decoration-none me-3" href="/ebay/account?action=signOut">Sign out</a>
+                                <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'USER'}">
+                                    <a href="/ebay/list/item-list.jsp" class="text-decoration-none me-3">Cart</a>
+                                </c:if>
+                                <a href="/ebay/list/order-list.jsp" class="text-decoration-none me-3">Order </a>
+                                <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'ADMIN'}">
+                                    <a  href="#" class="text-decoration-none me-3" >Account Manager</a>
+                                    <a  href="#" class="text-decoration-none me-3">Category Manager</a>
+                                </c:if>
                             </c:otherwise>
                         </c:choose>
-                        <a href="/ebay/list/item-list.jsp" class="text-decoration-none me-3">Cart</a>
-                        <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'ADMIN'}">
-                            <a  href="#" class="text-decoration-none me-3" >Account Manager</a>
-                            <a  href="#" class="text-decoration-none me-3">Order Manager</a>
-                            <a  href="#" class="text-decoration-none me-3">Category Manager</a>
-                        </c:if>
+
                     </div>
                 </div>
             </div>
@@ -38,7 +41,7 @@
                 <div class="row d-flex align-items-center">
                     <div class="col-md-2">
                         <a href="/ebay/home.jsp"><img src="/ebay/assets/image/logo.png" width="200px" height="75px"></a>
-                        
+
                     </div>
 
                     <div class="col-md-10">

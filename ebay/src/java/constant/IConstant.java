@@ -23,5 +23,6 @@ public interface IConstant {
     public String CATEGORY_LIST = "list/category-list.jsp";
     public String PRODUCT_LIST = "list/product-list.jsp";
     public String ITEM_LIST = "list/item-list.jsp";
+    public String ORDER_LIST = "list/order-list.jsp";
 
 }

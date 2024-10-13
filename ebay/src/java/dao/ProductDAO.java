@@ -144,5 +144,10 @@ public class ProductDAO {
     
     public static void main(String[] args) {
         ProductDAO productDao = ProductDAO.getInstance();
+        try {
+            System.out.println(productDao.selectProductById(2));
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -47,8 +47,9 @@
                             <td></td>
                             <td>${sessionScope.cart.getTotal()}</td>
                             <td>
-                                <form action="/ebay/order" method="get">
+                                <form action="/ebay/order" method="post">
                                     <input name="action" value="create" hidden>
+                                    <input name="mode" value="cart" hidden>
                                     <button class="btn btn-primary">Order Now</button>
                                 </form>
                             </td>

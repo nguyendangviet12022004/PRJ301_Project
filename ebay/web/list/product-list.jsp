@@ -26,7 +26,10 @@
                     <img class="card-img-top d-inline-block" src="${product.image}" alt="product image" width="300px" height="200px" >
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h5 class="card-title">${product.name}</h5>
-                        <p class="text-center text-primary">${product.price} $</p>
+                        <p class="text-center text-primary">Price : ${product.price} $</p>
+                        <c:if test="${sessionScope.account.role eq 'ADMIN'}">
+                            <p class="text-center text-danger">Stock : ${product.stock}</p>
+                        </c:if>
                     </div>
                     <c:choose>
                         <c:when test="${sessionScope.account.role eq 'ADMIN'}">
@@ -38,7 +41,12 @@
                         <c:otherwise>
                             <div class="card-footer d-flex justify-content-between">
                                 <a href="/ebay/cart?action=create&id=${product.id}" class="btn btn-primary">Add To Cart</a>
-                                <button class="btn btn-primary">Buy Now</button>
+                                <form action="/ebay/order" method="post">
+                                    <input name="id" value="${product.id}" hidden>
+                                    <input name="mode" value="buyNow" hidden>
+                                    <input name="action" value="create" hidden>
+                                    <button type="submit" class="btn btn-primary">Buy Now</button>
+                                </form>
                             </div>
                         </c:otherwise>
                     </c:choose>
