@@ -30,6 +30,7 @@ public class OrderFilter implements Filter {
         switch (action) {
             case "read":
             case "create":
+            case "delete":
                 if (account != null) {
                     chain.doFilter(rq, rp);
                 }else{

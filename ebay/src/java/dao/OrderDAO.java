@@ -20,6 +20,12 @@ public class OrderDAO {
     private final String SELECT_ORDER = "SELECT * FROM [ORDER]";
     private final String SELECT_ORDER_DETAIL_BY_ORDER_ID = "SELECT * FROM [ORDER_DETAIL] WHERE [order_id] = ?";
     private final String SELECT_ORDER_BY_USER = "SELECT * FROM [ORDER] WHERE [user_name] = ?";
+    private final String DELETE_ORDER_BY_ID = "DELETE FROM [ORDER] WHERE [id] = ?";
+    private final String DELETE_ORDER_DETAIL_BY_ORDER_ID = "DELETE FROM [ORDER_DETAIL] WHERE [ORDER_ID] = ?";
+    private final String UPDATE_ORDER_STATUS = "UPDATE  [ORDER] SET STATUS = ? WHERE [id] = ?";
+    private final String UPDATE_STOCK_PRODUCT = "UPDATE PRODUCT SET STOCK = STOCK - ? WHERE [ID] = ?";
+    
+    
     private Connection connection;
     private static OrderDAO instance;
 
@@ -30,16 +36,17 @@ public class OrderDAO {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    ;
-    
     public static OrderDAO getInstance() {
         if (instance == null) {
             instance = new OrderDAO();
         }
         return instance;
     }
-
+    private void delteOrderDetail(int orderId) throws SQLException{
+        PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_DETAIL_BY_ORDER_ID);
+        statement.setInt(1, orderId);
+        statement.executeUpdate();
+    }
     public void insertOrder(String userName, CartDTO cart) throws SQLException {
         PreparedStatement statement1 = connection.prepareStatement(INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
         statement1.setString(1, userName);
@@ -57,7 +64,6 @@ public class OrderDAO {
             }
         }
     }
-
     public void insertOrder(String userName, int productId) throws SQLException {
         PreparedStatement statement1 = connection.prepareStatement(INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
         statement1.setString(1, userName);
@@ -73,7 +79,12 @@ public class OrderDAO {
             statement2.executeUpdate();
         }
     }
-
+    public void deleteOrder(int id) throws SQLException{
+        delteOrderDetail(id);
+        PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_BY_ID);
+        statement.setInt(1, id);
+        statement.executeUpdate();
+    }
     public List<OrderDTO> selectAllOrder() throws SQLException {
         PreparedStatement statement1 = connection.prepareStatement(SELECT_ORDER);
         ResultSet rs = statement1.executeQuery();
@@ -102,7 +113,6 @@ public class OrderDAO {
         }
         return orders;
     }
-
     public List<OrderDTO> selectOrderByUser(String userName) throws SQLException {
         PreparedStatement statement1 = connection.prepareStatement(SELECT_ORDER_BY_USER);
         statement1.setString(1, userName);
@@ -132,9 +142,33 @@ public class OrderDAO {
         }
         return orders;
     }
-
+    public void updateStatusOrder(int id, String status) throws SQLException{
+        PreparedStatement statement = connection.prepareStatement(UPDATE_ORDER_STATUS);
+        statement.setString(1,status);
+        statement.setInt(2,id);
+        statement.executeUpdate();
+        
+        if(status.equalsIgnoreCase("APPROVE")){
+            updateStockAFterApproveOrder(id);
+            
+        }
+    }
+    public void updateStockAFterApproveOrder(int id) throws SQLException{
+        PreparedStatement statement1 = connection.prepareStatement(SELECT_ORDER_DETAIL_BY_ORDER_ID);
+        PreparedStatement statement2 = connection.prepareStatement(UPDATE_STOCK_PRODUCT);
+        statement1.setInt(1,id);
+        ResultSet rs = statement1.executeQuery();
+        while(rs.next()){
+            int productId = rs.getInt("product_id");
+            int quantity = rs.getInt("quantity");
+            statement2.setInt(1, quantity);
+            statement2.setInt(2,productId);
+            statement2.executeUpdate();
+        }
+    }
+    
     public static void main(String[] args) throws SQLException {
-        System.out.println(getInstance().selectOrderByUser("user1"));
+        getInstance().updateStatusOrder(5, "APPROVE");
     }
 
 }

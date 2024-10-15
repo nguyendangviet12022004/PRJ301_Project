@@ -36,7 +36,7 @@ public class OrderController extends HttpServlet {
         HttpSession session = request.getSession();
         AccountDTO account = (AccountDTO) session.getAttribute("account");
         String mode = request.getParameter("mode");
-        
+
         if (mode.equals("cart")) {
             CartDTO cart = (CartDTO) session.getAttribute("cart");
             try {
@@ -79,12 +79,34 @@ public class OrderController extends HttpServlet {
 
     private void deletOrder(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        try {
+
+            dao.deleteOrder(id);
+            reloadOrder(request, response);
+            response.sendRedirect(IConstant.ORDER_LIST);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     private void updateOrder(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        int id = Integer.parseInt(request.getParameter("id"));
+        String status = request.getParameter("status");
+        PrintWriter out = response.getWriter();
+        try {
+            dao.updateStatusOrder(id, status);
+            reloadOrder(request, response);
+            if (status.equalsIgnoreCase("APPROVE")) {
+                HttpSession session = request.getSession();
+                session.removeAttribute("products");
+            }
+            response.sendRedirect(IConstant.ORDER_LIST);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -101,6 +123,9 @@ public class OrderController extends HttpServlet {
             case "read":
                 readOrder(request, response);
                 break;
+            case "delete":
+                deletOrder(request, response);
+                break;
         }
     }
 
@@ -116,7 +141,7 @@ public class OrderController extends HttpServlet {
                 createOrder(request, response);
                 break;
             case "update":
-
+                updateOrder(request, response);
                 break;
         }
     }
