@@ -1,5 +1,6 @@
 package dao;
 
+import constant.IConstant;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +11,11 @@ import util.DBHelper;
 
 public class AccountDAO {
     private String SELECT_ALL_ACCOUNTS = "SELECT * FROM ACCOUNT";
+    private String SELECT_ALL_USER = "SELECT * FROM ACCOUNT WHERE [role] = 'USER'";
     private String SELECT_ACCOUNT = "SELECT * FROM ACCOUNT WHERE [USER_NAME] = ? AND [PASSWORD] = ?";
     private String INSERT_ACCOUNT = "INSERT INTO ACCOUNT([USER_NAME],[PASSWORD],[ROLE]) VALUES(?,?,?)";
     private String DELETE_ACCOUNT = "DELETE FROM ACCOUNT WHERE [USER_NAME] = ?";
     private String SELECT_ACCOUNT_BY_USER_NAME = "SELECT * FROM ACCOUNT WHERE [USER_NAME] = ? ";
-    
     private static AccountDAO instance;
     private Connection connection;
     
@@ -31,8 +32,7 @@ public class AccountDAO {
             instance = new AccountDAO();
         }
         return instance;
-    }
-    
+    }  
     public List<AccountDTO> selectAllAccounts() throws SQLException{
         PreparedStatement statement = this.connection.prepareStatement(SELECT_ALL_ACCOUNTS);
         ResultSet result = statement.executeQuery();
@@ -46,11 +46,17 @@ public class AccountDAO {
         return accounts;
     }
     
-    
-    
-    public List<AccountDTO> selectAllUsers() {
-        
-        return null;
+    public List<AccountDTO> selectAllUsers() throws SQLException {
+        PreparedStatement statement = this.connection.prepareStatement(SELECT_ALL_USER);
+        ResultSet result = statement.executeQuery();
+        List<AccountDTO> accounts = new ArrayList<>();
+        while(result.next()){
+            String userName = result.getString("user_name");
+            String password = result.getString("password");
+            String role = IConstant.USER;
+            accounts.add(new AccountDTO(userName, password, role));
+        }
+        return accounts;
     }
     public AccountDTO selectAccount(String userName, String password) throws SQLException{
         PreparedStatement statement = this.connection.prepareStatement(SELECT_ACCOUNT);
@@ -86,8 +92,7 @@ public class AccountDAO {
         statement.setString(3, role);
         statement.executeUpdate();
         statement.close();
-    }
-    
+    } 
     public void deleteAccount(String userName) throws SQLException{
         PreparedStatement statement = this.connection.prepareStatement(DELETE_ACCOUNT);
         statement.setString(1, userName);   
@@ -96,7 +101,6 @@ public class AccountDAO {
     }
     
     public static void main(String[] args) throws SQLException {
-        //getInstance().deleteAccount("user4");
-        System.out.println(getInstance().selectAccountByUserName("user1"));
+        System.out.println(getInstance().selectAllUsers());
     }
 }

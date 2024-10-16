@@ -28,7 +28,7 @@
                                 </c:if>
                                 <a href="/ebay/list/order-list.jsp" class="text-decoration-none me-3">Order </a>
                                 <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'ADMIN'}">
-                                    <a  href="#" class="text-decoration-none me-3" >Account Manager</a>
+                                    <a  href="/ebay/list/account-list.jsp" class="text-decoration-none me-3" >Account Manager</a>
                                     <a  href="#" class="text-decoration-none me-3">Category Manager</a>
                                 </c:if>
                             </c:otherwise>
@@ -47,7 +47,7 @@
                     <div class="col-md-10">
                         <form class="d-flex" action="/ebay/product" method="get">
                             <input hidden name="action" value="search">
-                            <input class="form-control me-2 rounded-pill" name = "searchKey" type="search" placeholder="Search for anything..." aria-label="Search" value="${param.searchKey}">
+                            <input class="form-control me-2 rounded-pill" name = "searchKey" type="search" placeholder="Search product..." aria-label="Search" value="${param.searchKey}">
                             <button class="btn rounded-pill" style="background-color: #007bff; color: white;" type="submit">Search</button>
                         </form>
                     </div>

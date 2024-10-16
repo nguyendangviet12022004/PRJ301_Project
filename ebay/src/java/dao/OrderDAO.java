@@ -21,10 +21,9 @@ public class OrderDAO {
     private final String SELECT_ORDER_DETAIL_BY_ORDER_ID = "SELECT * FROM [ORDER_DETAIL] WHERE [order_id] = ?";
     private final String SELECT_ORDER_BY_USER = "SELECT * FROM [ORDER] WHERE [user_name] = ?";
     private final String DELETE_ORDER_BY_ID = "DELETE FROM [ORDER] WHERE [id] = ?";
-    private final String DELETE_ORDER_DETAIL_BY_ORDER_ID = "DELETE FROM [ORDER_DETAIL] WHERE [ORDER_ID] = ?";
     private final String UPDATE_ORDER_STATUS = "UPDATE  [ORDER] SET STATUS = ? WHERE [id] = ?";
     private final String UPDATE_STOCK_PRODUCT = "UPDATE PRODUCT SET STOCK = STOCK - ? WHERE [ID] = ?";
-    
+
     
     private Connection connection;
     private static OrderDAO instance;
@@ -42,11 +41,7 @@ public class OrderDAO {
         }
         return instance;
     }
-    private void delteOrderDetail(int orderId) throws SQLException{
-        PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_DETAIL_BY_ORDER_ID);
-        statement.setInt(1, orderId);
-        statement.executeUpdate();
-    }
+
     public void insertOrder(String userName, CartDTO cart) throws SQLException {
         PreparedStatement statement1 = connection.prepareStatement(INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
         statement1.setString(1, userName);
@@ -80,7 +75,6 @@ public class OrderDAO {
         }
     }
     public void deleteOrder(int id) throws SQLException{
-        delteOrderDetail(id);
         PreparedStatement statement = connection.prepareStatement(DELETE_ORDER_BY_ID);
         statement.setInt(1, id);
         statement.executeUpdate();
@@ -166,7 +160,6 @@ public class OrderDAO {
             statement2.executeUpdate();
         }
     }
-    
     public static void main(String[] args) throws SQLException {
         getInstance().updateStatusOrder(5, "APPROVE");
     }

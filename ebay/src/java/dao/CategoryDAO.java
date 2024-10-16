@@ -64,4 +64,8 @@ public class CategoryDAO {
         statement.executeUpdate();
         statement.close();
     }
+    
+    public static void main(String[] args) throws SQLException {
+        System.out.println(getInstance().selectAllCategories());
+    }
 }

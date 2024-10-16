@@ -25,7 +25,7 @@ public class OrderController extends HttpServlet {
 
     private OrderDAO dao = OrderDAO.getInstance();
 
-    private void reloadOrder(HttpServletRequest request, HttpServletResponse response)
+    private void resetOrder(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("orders");
@@ -54,7 +54,7 @@ public class OrderController extends HttpServlet {
             }
         }
 
-        reloadOrder(request, response);
+        resetOrder(request, response);
         response.sendRedirect(IConstant.HOME_PAGE);
     }
 
@@ -83,7 +83,7 @@ public class OrderController extends HttpServlet {
         try {
 
             dao.deleteOrder(id);
-            reloadOrder(request, response);
+            resetOrder(request, response);
             response.sendRedirect(IConstant.ORDER_LIST);
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,7 +98,7 @@ public class OrderController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             dao.updateStatusOrder(id, status);
-            reloadOrder(request, response);
+            resetOrder(request, response);
             if (status.equalsIgnoreCase("APPROVE")) {
                 HttpSession session = request.getSession();
                 session.removeAttribute("products");

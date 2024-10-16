@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,26 +19,35 @@ public class AccountController extends HttpServlet {
     
     private static final AccountDAO dao = AccountDAO.getInstance();
     
+    private void resetAccount(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        session.removeAttribute("accounts");
+    }
+    
     private void createAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        
+        String role = request.getParameter("role");
+        if(role == null || role.isBlank()){
+            role = IConstant.USER;
+        }
         try {
-            dao.insertAccount(userName, password, IConstant.USER);
+            dao.insertAccount(userName, password, role);
             response.sendRedirect(IConstant.SIGN_IN_FORM);
         } catch (SQLException ex) {
             request.setAttribute("error", "Username is exist");
             request.getRequestDispatcher(IConstant.REGESTRATION_FORM).forward(request, response);
         }
-        
     }
     
     private void readAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         try {
-            List<AccountDTO> accounts = dao.selectAllAccounts();
-            request.setAttribute("accounts", accounts);
-            request.getRequestDispatcher(IConstant.ACCOUNT_LIST).forward(request, response);
+            List<AccountDTO> accounts = dao.selectAllUsers();
+            HttpSession session = request.getSession();
+            session.setAttribute("accounts", accounts);
+            response.sendRedirect(IConstant.ACCOUNT_LIST);
+            
         } catch (SQLException ex) {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -47,7 +57,8 @@ public class AccountController extends HttpServlet {
         String userName = request.getParameter("userName");
         try {
             dao.deleteAccount(userName);
-            request.getRequestDispatcher(IConstant.ACCOUNT_LIST).forward(request, response);
+            resetAccount(request, response);
+            response.sendRedirect(IConstant.ACCOUNT_LIST);
         } catch (SQLException ex) {
             Logger.getLogger(AccountController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,9 +93,12 @@ public class AccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        PrintWriter out = response.getWriter();
+        
         if (action == null) {
             action = "read";
         }
+        
         switch (action) {
             case "signOut":
                 signOut(request, response);

@@ -30,22 +30,29 @@ public class AccountFilter implements Filter {
         if (action == null || action.isEmpty() || action.isBlank()) {
             action = "read";
         }
-        
-        switch(action){
-            case "create": 
+
+        switch (action) {
+            case "create":
             case "signIn":
             case "signOut":
                 chain.doFilter(rq, rp);
                 break;
-           default:
-               if(account != null && account.getRole().equals(IConstant.ADMIN)){
+            case "read":
+                if (account != null && account.getRole().equals(IConstant.ADMIN)) {
                     chain.doFilter(rq, rp);
-                }else{
+                } else {
                     response.sendRedirect(IConstant.HOME_PAGE);
-                }     
+                }
+                break;
+            default:
+                if (account != null) {
+                    chain.doFilter(rq, rp);
+                } else {
+                    response.sendRedirect(IConstant.HOME_PAGE);
+                }
+
         }
-        
-        
+
     }
 
 }
