@@ -16,6 +16,8 @@ public class AccountDAO {
     private String INSERT_ACCOUNT = "INSERT INTO ACCOUNT([USER_NAME],[PASSWORD],[ROLE]) VALUES(?,?,?)";
     private String DELETE_ACCOUNT = "DELETE FROM ACCOUNT WHERE [USER_NAME] = ?";
     private String SELECT_ACCOUNT_BY_USER_NAME = "SELECT * FROM ACCOUNT WHERE [USER_NAME] = ? ";
+    private String UPDATE_PASSWORD = "UPDATE [ACCOUNT] SET [password] = ? where [user_name] = ?";
+    
     private static AccountDAO instance;
     private Connection connection;
     
@@ -100,6 +102,13 @@ public class AccountDAO {
         statement.close();
     }
     
+    public void updatePassword(String userName, String password) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(UPDATE_PASSWORD);
+        statement.setString(1, password);
+        statement.setString(2,userName);
+        statement.executeUpdate();
+        statement.close();
+    }
     public static void main(String[] args) throws SQLException {
         System.out.println(getInstance().selectAllUsers());
     }

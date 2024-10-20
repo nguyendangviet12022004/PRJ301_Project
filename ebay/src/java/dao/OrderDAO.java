@@ -17,9 +17,9 @@ public class OrderDAO {
 
     private final String INSERT_ORDER = "INSERT INTO [ORDER]([user_name]) VALUES (?)";
     private final String INSERT_ORDER_DETAIL = "INSERT INTO [ORDER_DETAIL](order_id,product_id,quantity) VALUES(?,?,?)";
-    private final String SELECT_ORDER = "SELECT * FROM [ORDER]";
-    private final String SELECT_ORDER_DETAIL_BY_ORDER_ID = "SELECT * FROM [ORDER_DETAIL] WHERE [order_id] = ?";
-    private final String SELECT_ORDER_BY_USER = "SELECT * FROM [ORDER] WHERE [user_name] = ?";
+    private final String SELECT_ORDER = "SELECT * FROM [ORDER] ORDER BY [date] DESC";
+    private final String SELECT_ORDER_DETAIL_BY_ORDER_ID = "SELECT * FROM [ORDER_DETAIL] WHERE [order_id] = ? " ;
+    private final String SELECT_ORDER_BY_USER = "SELECT * FROM [ORDER] WHERE [user_name] = ? ORDER BY [date] DESC";
     private final String DELETE_ORDER_BY_ID = "DELETE FROM [ORDER] WHERE [id] = ?";
     private final String UPDATE_ORDER_STATUS = "UPDATE  [ORDER] SET STATUS = ? WHERE [id] = ?";
     private final String UPDATE_STOCK_PRODUCT = "UPDATE PRODUCT SET STOCK = STOCK - ? WHERE [ID] = ?";
@@ -161,7 +161,7 @@ public class OrderDAO {
         }
     }
     public static void main(String[] args) throws SQLException {
-        getInstance().updateStatusOrder(5, "APPROVE");
+        getInstance().selectAllOrder();
     }
 
 }

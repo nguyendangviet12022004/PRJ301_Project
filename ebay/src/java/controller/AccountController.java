@@ -89,6 +89,34 @@ public class AccountController extends HttpServlet {
         response.sendRedirect(IConstant.HOME_PAGE);
     }
     
+    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
+        String rePassword = request.getParameter("rePassword");
+        
+        HttpSession session = request.getSession();
+        AccountDTO account = (AccountDTO) session.getAttribute("account");
+        
+        if(!account.getPassword().equals(oldPassword)){
+            request.setAttribute("error", "Incorrect old password");
+        }else if(!newPassword.equals(rePassword)){
+                request.setAttribute("error", "Re-enter new password is not correct");
+        }else if(newPassword.equals(oldPassword)){
+                request.setAttribute("error", "The new password must not be the same the old one");
+        }else{
+            try {
+                dao.updatePassword(account.getUserName(), newPassword);
+                request.setAttribute("info" , "Change password successfully");
+            } catch (SQLException ex) {
+                request.setAttribute("error", "The server error");
+            }
+            
+        }
+        
+        request.getRequestDispatcher(IConstant.CHANGE_PASSWORD_FORM).forward(request, response);
+        
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -124,10 +152,11 @@ public class AccountController extends HttpServlet {
             case "create":
                 createAccount(request, response);
                 break;
-            case "update":
-                break;
             case "signIn":
                 signIn(request, response);
+                break;
+            case "update":
+                update(request, response);
                 break;
         }
     }

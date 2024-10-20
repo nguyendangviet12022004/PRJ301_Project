@@ -23,6 +23,8 @@
                             <c:otherwise>
                                 <a class="text-decoration-none me-3" href="#">Hello ${sessionScope.account.userName}</a>
                                 <a class="text-decoration-none me-3" href="/ebay/account?action=signOut">Sign out</a>
+                                <a class="text-decoration-none me-3" href="/ebay/form/change-password-form.jsp">Change password</a>
+                                
                                 <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'USER'}">
                                     <a href="/ebay/list/item-list.jsp" class="text-decoration-none me-3">Cart</a>
                                 </c:if>
