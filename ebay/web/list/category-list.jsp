@@ -9,10 +9,20 @@
 
     </head>
     <body>
-        <div class="container d-flex flex-wrap justify-content-between">
+        <div class="container d-flex flex-nowrap justify-content-between" style="overflow-x:scroll">
+            <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'ADMIN'}">
+                <a href="category?action=create">
+                    <div>
+                        <img src="/ebay/assets/image/btn.png" alt="alt" width="150px" height="150px"  class="rounded-circle"/>
+                        <p class="text-center">Add</p>
+                    </div>
+                </a>
+
+            </c:if>
+
             <a href="product">
                 <div>
-                    <img src="assets/image/AllCategoriesIcon.png" alt="alt" width="150px" height="150px"  class="rounded-circle"/>
+                    <img src="/ebay/assets/image/AllCategoriesIcon.png" alt="alt" width="150px" height="150px"  class="rounded-circle"/>
                     <p class="text-center">All</p>
                 </div>
             </a>
