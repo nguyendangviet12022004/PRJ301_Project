@@ -7,16 +7,21 @@ import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ProductDTO;
 
+@MultipartConfig
 public class ProductController extends HttpServlet {
 
     private final static ProductDAO dao = ProductDAO.getInstance();
@@ -84,13 +89,27 @@ public class ProductController extends HttpServlet {
             int stock = Integer.parseInt(request.getParameter("stock"));
             int price = Integer.parseInt(request.getParameter("price"));
             int category_id = Integer.parseInt(request.getParameter("categoryId"));
-            String image = request.getParameter("image");
 
-            dao.insertProduct(name, stock, price, category_id, image);
+            Part file = request.getPart("image");
+            String appPath = request.getServletContext().getRealPath("");
+            String imageNameFile = file.getSubmittedFileName();
+            String uploadPath = appPath + "assets/image/" + imageNameFile;
+
+            FileOutputStream fos = new FileOutputStream(uploadPath);
+            InputStream is = file.getInputStream();
+
+            byte[] data = new byte[is.available()];
+            is.read(data);
+            fos.write(data);
+            fos.close();
+
+            dao.insertProduct(name, stock, price, category_id, "/ebay/assets/image/" + imageNameFile);
             request.setAttribute("info", "Create Product Successfullly");
             reloadProducts(request, response);
             request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
+            PrintWriter out = response.getWriter();
+            out.println(ex.getMessage());
             request.setAttribute("error", "Sql error");
             request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         }
@@ -104,13 +123,33 @@ public class ProductController extends HttpServlet {
             int stock = Integer.parseInt(request.getParameter("stock"));
             int price = Integer.parseInt(request.getParameter("price"));
             int category_id = Integer.parseInt(request.getParameter("categoryId"));
-            String image = request.getParameter("image");
+            String image = dao.selectProductById(Integer.parseInt(id)).getImage();
+
+            Part file = request.getPart("image");
+            try {
+                if (file != null) {
+                    String appPath = request.getServletContext().getRealPath("");
+                    String imageNameFile = file.getSubmittedFileName();
+                    String uploadPath = appPath + "assets/image/" + imageNameFile;
+
+                    FileOutputStream fos = new FileOutputStream(uploadPath);
+                    InputStream is = file.getInputStream();
+
+                    byte[] data = new byte[is.available()];
+                    is.read(data);
+                    fos.write(data);
+                    fos.close();
+                    image = "/ebay/assets/image/" + imageNameFile;
+                }
+            } catch (Exception ex) {
+
+            }
 
             dao.updateProduct(Integer.parseInt(id), name, stock, price, category_id, image);
-            
+
             reloadProducts(request, response);
             request.setAttribute("info", "Update Product Successfully");
-             request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
+            request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
         } catch (SQLException ex) {
             request.setAttribute("error", "Sql error");
             request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
@@ -155,16 +194,16 @@ public class ProductController extends HttpServlet {
                 break;
             case "update":
                 String id = request.getParameter("id");
-            {
-                try {
-                    ProductDTO product = dao.selectProductById(Integer.parseInt(id));
-                    request.setAttribute("product", product);
-                    request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                 {
+                    try {
+                        ProductDTO product = dao.selectProductById(Integer.parseInt(id));
+                        request.setAttribute("product", product);
+                        request.getRequestDispatcher(IConstant.PRODUCT_FORM).forward(request, response);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-                
+
                 break;
 
         }

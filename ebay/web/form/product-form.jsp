@@ -13,8 +13,8 @@
             <a href="/ebay/home.jsp"><img src="/ebay/assets/image/logo.png"></a>
         </div>
 
- 
-        <form action="product" method="post" class="d-flex flex-column g-2 w-100">
+
+        <form action="product" method="post" class="d-flex flex-column g-2 w-100" enctype="multipart/form-data">
             <input type="text" name="action" value="${param.action}" hidden>
             <input type="text" name="id" value="${requestScope.product.id}" hidden>
             <div class="form-floating my-1">
@@ -34,9 +34,14 @@
                     <option value="${category.id}" ${requestScope.product.category.id == category.id ? 'selected' : ''}>${category.name}</option>
                 </c:forEach>
             </select>
-            <div class="form-floating my-1">
-                <input type="text" name="image"  required class="form-control " placeholder="" value="${requestScope.product.image}">
-                <label for="image">Image Link</label>
+            <!--            <div class="form-floating my-1">
+                            <input type="text" name="image"  required class="form-control " placeholder="" value="${requestScope.product.image}">
+                            <label for="image">Image Link</label>
+                        </div>-->
+
+            <div class="my-1">
+                
+                <input class="form-control" type="file" name="image"> 
             </div>
 
             <c:if test ="${requestScope.error != null}">
@@ -49,7 +54,7 @@
                     ${requestScope.info}
                 </div>
             </c:if>
-                <button type="submit" class="btn btn-primary text-uppercase">${param.action}</button>
+            <button type="submit" class="btn btn-primary text-uppercase">${param.action}</button>
         </form>
     </body>
 </html>
