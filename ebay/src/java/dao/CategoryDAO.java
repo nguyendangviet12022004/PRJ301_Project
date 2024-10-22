@@ -13,6 +13,9 @@ public class CategoryDAO {
     private final String SELECT_ALL_CATEGORIES = "SELECT * FROM CATEGORY";
     private final String SELECT_CATEGORY_BY_ID = "SELECT * FROM CATEGORY WHERE ID = ? ";
     private final String INSERT_CATEGORY = "INSERT INTO CATEGORY([NAME],IMAGE) VALUES(?,?)";
+    private final String UPDATE_CATEGORY = "UPDATE CATEGORY SET NAME = ?, IMAGE = ? WHERE ID = ?";
+    private final String DELETE_CATEGORY = "DELETE FROM CATEGORY WHERE ID = ?";
+    
     private static CategoryDAO instance;
     private Connection connection;
 
@@ -65,6 +68,21 @@ public class CategoryDAO {
         statement.close();
     }
     
+    public void updateCategory(int id, String name, String image) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(UPDATE_CATEGORY);
+        statement.setString(1, name);
+        statement.setString(2, image);
+        statement.setInt(3,id);
+        statement.executeUpdate();
+        statement.close();
+    }
+    
+    public void deleteCategory(int id) throws SQLException{
+        PreparedStatement statement = this.connection.prepareStatement(DELETE_CATEGORY);
+        statement.setInt(1,id);
+        statement.executeUpdate();
+        statement.close();
+    }
     public static void main(String[] args) throws SQLException {
         System.out.println(getInstance().selectAllCategories());
     }

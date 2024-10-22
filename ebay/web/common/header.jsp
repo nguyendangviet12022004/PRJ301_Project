@@ -31,7 +31,6 @@
                                 <a href="/ebay/list/order-list.jsp" class="text-decoration-none me-3">Order </a>
                                 <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'ADMIN'}">
                                     <a  href="/ebay/list/account-list.jsp" class="text-decoration-none me-3" >Account Manager</a>
-                                    <a  href="#" class="text-decoration-none me-3">Category Manager</a>
                                 </c:if>
                             </c:otherwise>
                         </c:choose>

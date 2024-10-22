@@ -18,6 +18,7 @@ public interface IConstant {
     public String PRODUCT_FORM = "form/product-form.jsp";
     public String ORDER_FORM = "form/order-form.jsp";
     public String CHANGE_PASSWORD_FORM = "form/change-password-form.jsp";
+    public String CATEGORY_FORM = "form/category-form.jsp";
     
     
     public String ACCOUNT_LIST = "list/account-list.jsp";

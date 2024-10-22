@@ -31,6 +31,12 @@
                     <div>
                         <img src="${category.image}" alt="${category.name} image" width="150px" height="150px"  class="rounded-circle"/>
                         <p class="text-center">${category.name}</p>
+                        <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'ADMIN'}">
+                            <div class="d-flex justify-content-between flex-column align-items-center">
+                                <p><a href="/ebay/category?action=delete&id=${category.id}" class="text-danger">Delete</a></p>
+                                <p><a href="/ebay/category?action=update&id=${category.id}" class="text-success">Update</a></p>
+                            </div>
+                        </c:if>
                     </div>
                 </a>
             </c:forEach>
