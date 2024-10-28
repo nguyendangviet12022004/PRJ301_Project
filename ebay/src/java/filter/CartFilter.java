@@ -31,6 +31,7 @@ public class CartFilter implements Filter {
                 chain.doFilter(rq, rp);
                 break;
             case "create":
+            case "update":
                 if (account != null) {
                     chain.doFilter(rq, rp);
                 } else {

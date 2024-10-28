@@ -10,6 +10,7 @@
     </head>
     <body>
 
+        
         <c:if test="${sessionScope.accounts == null}">
             <c:redirect url="../account"></c:redirect>
         </c:if>

@@ -9,6 +9,12 @@
 
     </head>
     <body>
+        <c:if test="${sessionScope.account == null or sessionScope.account.role eq 'USER'}">
+            <% 
+        
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "403");
+            %>
+        </c:if>
         <div class="">
             <a href="/ebay/home.jsp"><img src="/ebay/assets/image/logo.png"></a>
         </div>

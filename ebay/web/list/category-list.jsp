@@ -9,6 +9,7 @@
 
     </head>
     <body>
+        
         <div class="container d-flex flex-nowrap justify-content-between" style="overflow-x:scroll">
             <c:if test="${sessionScope.account != null && sessionScope.account.role eq 'ADMIN'}">
                 <a href="category?action=create">
